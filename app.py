@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.10
+
 """Provide several sample math calculations.
 
 This module allows the user to make mathematical calculations.
@@ -18,6 +18,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 # flask imports
 from flask import flash, redirect, render_template, request, url_for
 from models import Project, Flask, app, db
+import datetime
 # create routes(visible parts of the site- urls)
 
 
@@ -38,7 +39,37 @@ def index():
     Returns:
         float: A number representing the arithmetic sum of `a` and `b`.
     """
-    return render_template('index.html')
+    new_project=Project(title='Test', date=datetime.datetime.now(),description='Test',skills_practiced='Kung Fu',url='www.treehouse.com')
+    db.session.add(new_project)
+    db.session.commit()
+    projects=db.session.query(Project).all()
+    
+    return render_template('index.html', projects=projects)
+
+
+@app.route('/projects/new')
+def create():
+    return render_template('projectform.html')
+
+
+@app.route('/projects/<id>')
+def detail(id):
+    return render_template('detail.html')
+
+
+@app.route('/projects/<id>/edit')
+def edit(id):
+    return render_template('detail.html')
+
+
+@app.route('/projects/<id>/delete')
+def delete(id):
+    pass
+
+
+    
+
+
 
 
 if __name__ == '__main__':
