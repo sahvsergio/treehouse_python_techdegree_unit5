@@ -22,6 +22,14 @@ import datetime
 # create routes(visible parts of the site- urls)
 
 
+
+
+
+
+    
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 # decorator
 def index():
@@ -39,12 +47,14 @@ def index():
     Returns:
         float: A number representing the arithmetic sum of `a` and `b`.
     """
-    new_project=Project(title='Test', date=datetime.datetime.now(),description='Test',skills_practiced='Kung Fu',url='www.treehouse.com')
-    db.session.add(new_project)
-    db.session.commit()
+  
     projects=db.session.query(Project).all()
     
-    return render_template('index.html', projects=projects)
+    return render_template('index.html' , projects=projects)
+
+
+
+    
 
 
 @app.route('/projects/new')
