@@ -24,7 +24,7 @@ db = SQLAlchemy(app)
 
 class Project(db.Model):
     """
-    A class used to represent an Animal
+    A class used to represent a project
 
     ...
 
@@ -47,15 +47,13 @@ class Project(db.Model):
     __tablename__ = 'my_projects'
     id = db.Column(db.Integer, primary_key=True)  # primary key
     # timestamp when the item was created
-    created = db.Column('Created', db.DateTime, default=datetime.datetime.now)
-    book_name = db.Column('Name of the book', db.String())
-    date_published = db.Column('Date_published', db.String())
-    genre = db.Column('Genre', db.String())
-    date_sold = db.Column('Date Sold', db.String())
-    number_of_pages = db.Column('Number of Pages', db.String())
-    language = db.Column('Language', db.String())
-    description = db.Column('Description', db.Text)
-    isbn = db.Column('ISBN', db.String())
+
+    title=db.Column('Title', db.String())
+    date = db.Column('Date',  db.DateTime, default=datetime.datetime.now)
+    description=db.Column('Description', db.String())
+    skills_practiced = db.Column('Skills Practice', db.String())
+    url = db.Column('GitHub Repo', db.String())
+
 
 # finish creating the fields here, before setting the site again
     def __repr__(self):
@@ -78,14 +76,10 @@ class Project(db.Model):
             parameter.
         """
         return f'''
-            Book Name:{self.book_name}
-            Created:{self.created}
-            Date Published :{self.date_published}
-            Genre:{self.genre}
-            Date Sold:{self.date_sold}
-            Language: {self.language}
-            Description: {self.description}
-            Number of pages:{self.number_of_pages}
-
-                )
-                '''
+    Project(
+    Title:{self.title},
+    Date:{self.date},
+    Description: {self.description},
+    Skills Practiced: {self.skills_practiced},
+    Repo link: {self.url}
+    '''
