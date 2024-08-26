@@ -19,47 +19,45 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import flash, redirect, render_template, request, url_for
 from models import Project, Flask, app, db
 import datetime
+
+
 # create routes(visible parts of the site- urls)
-
-
-
-
-
-
-    
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 # decorator
 def index():
-    """Renders the index page of the app.
 
-    Examples:
-        >>> index()
-        6.0
-        >>> index()
+    projects = db.session.query(Project).all()
+
+    return render_template('index.html', projects=projects)
 
 
-    Args:
-    none
-
-    Returns:
-        float: A number representing the arithmetic sum of `a` and `b`.
-    """
-  
-    projects=db.session.query(Project).all()
-    
-    return render_template('index.html' , projects=projects)
-
-
-
-    
-
-
-@app.route('/projects/new')
+@app.route('/projects/new', methods=['GET', 'POST'])
 def create():
-    return render_template('projectform.html')
+    '''Turns the string into a date object'''
+
+   
+    if request.form:
+        title = request.form['title'],
+        date = request.form['date'],
+        description = request.form['desc'],
+        skills_practiced = request.form['skills'],
+        url = request.form['github']
+        date=list(date)
+        print(date)
+        year, month, day=date
+        date = datetime.date(year, month, day)
+        new_project = Project(
+            title=title,
+            date=date,
+            description=description,
+            skills_practiced=skills_practiced,
+            url=url
+            )
+        db.session.add(new_project)
+        db.session.commit()
+        return render_template('index.html')
+
+    return render_template('new_project.html')
 
 
 @app.route('/projects/<id>')
@@ -75,11 +73,6 @@ def edit(id):
 @app.route('/projects/<id>/delete')
 def delete(id):
     pass
-
-
-    
-
-
 
 
 if __name__ == '__main__':

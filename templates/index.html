@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
-
-        {% block content %}
+{% extends 'layout.html' %}
+      
+        {% block content %}   
         <section class="header">
             <h1>Python Developer</h1>
             <p>A short one-liner about your love of coding.</p>
@@ -34,22 +34,24 @@
             <i class="fas fa-file-code"></i>
             <h2>Projects</h2>
             <div id="project-list">
-                {% for project   in projects  %}
-                <div id="project1" class="a-project">
+                {% for project in projects  %}
+                   <div id="project1" class="a-project">
                     <h3>{{project.title}}</h3>
-                    <a href="{url_for({{project.url}})}" class="github-btn">
+                    <a href="{project.url}" class="github-btn">
                         <i class="fab fa-github"></i>
                         View on GitHub
                     </a>
                     <p>
-                       {{project.description}}
+                        {{project.description}} 
                     </p>
                     <p>
-                        Skills: {{project.skills_practiced}}
+                        Skills:
+                        {{project.skills_practiced}} 
                     </p>
                 </div>
                 {% endfor %}
-               
+ 
+                
             </div>
             <div id="triangle4"></div>
         </section>
@@ -64,9 +66,8 @@
             </p>
             <p>
                 <i class="fas fa-envelope"></i>
-                my_email@email.com
+                sergioandresherrera@gmail.com
             </p>
         </section>
-
         {% endblock content %}
        
