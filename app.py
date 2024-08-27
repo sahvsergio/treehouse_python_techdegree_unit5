@@ -43,6 +43,7 @@ def create():
     # ('desc', 'Helloo'), 
     # ('skills', 'Python'),
     # ('github', 'https://www.bloghorror.com')])
+    projects = db.session.query(Project).all()
    
     
     
@@ -62,7 +63,7 @@ def create():
         db.session.commit()
         return redirect(url_for('index'))
        
-    return render_template('new_project.html')
+    return render_template('new_project.html', projects=projects)
 
         
     
