@@ -14,14 +14,14 @@
         <section class="navigation">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="#">Sergio Herrera</a>
+                  <a class="navbar-brand" href="#">Student Name</a>
                   <button class="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#about">About</a>
@@ -34,12 +34,12 @@
                           Projects
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          {% for project  in projects  %}
-                          <li><a class="dropdown-item" href="#project1">{{project.title}}</a></li>
-                          
+                          {% for  project in projects %}
+                            <li><a class="dropdown-item" href="#project1">{{project.title}}</a></li>
                           {% endfor %}
+                          
                         </ul>
-                      </li>
+                      
                       <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
                       </li>
