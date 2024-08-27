@@ -2,7 +2,7 @@ autoflake==0.6.6
 autopep8==1.2.4
 blinker==1.8.2
 click==8.1.7
-codestyle==0.4.3
+pycodestyle<2.3.0
 flake8==3.2.1
 Flask==3.0.3
 Flask-SQLAlchemy==3.1.1
@@ -15,7 +15,6 @@ MarkupSafe==2.1.5
 mccabe==0.5.3
 packaging==24.1
 pep8==1.5.7
-pycodestyle==2.12.1
 pyflakes==0.8.1
 SQLAlchemy==2.0.32
 typing_extensions==4.12.2
