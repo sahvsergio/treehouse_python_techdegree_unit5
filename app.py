@@ -21,6 +21,10 @@ from models import Project, Flask, app, db
 import datetime
 
 
+months = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+
+
 # create routes(visible parts of the site- urls)
 @app.route('/', methods=['GET', 'POST'])
 # decorator
@@ -34,31 +38,40 @@ def index():
 @app.route('/projects/new', methods=['GET', 'POST'])
 def create():
     '''Turns the string into a date object'''
-
+    #'title', 'Hello'), 
+    # ('date', '2024-12'), 
+    # ('desc', 'Helloo'), 
+    # ('skills', 'Python'),
+    # ('github', 'https://www.bloghorror.com')])
+   
+    
+    
    
     if request.form:
-        title = request.form['title'],
-        date = request.form['date'],
-        description = request.form['desc'],
-        skills_practiced = request.form['skills'],
-        url = request.form['github']
-        date=list(date)
-        print(date)
-        year, month, day=date
-        date = datetime.date(year, month, day)
-        new_project = Project(
-            title=title,
-            date=date,
-            description=description,
-            skills_practiced=skills_practiced,
-            url=url
+        date_format = '%Y-%m'
+        cleaned_date = datetime.datetime.strptime(request.form['date'], date_format)
+        new_project=Project(
+            title=request.form['title'],
+            date=cleaned_date,
+            description=request.form['desc'],
+            skills_practiced=request.form['skills'],
+            url=request.form['github']
             )
         db.session.add(new_project)
+        print(db.session.dirty)
         db.session.commit()
-        return render_template('index.html')
-
+        return redirect(url_for('index'))
+       
     return render_template('new_project.html')
 
+        
+    
+        
+   
+    
+
+
+  
 
 @app.route('/projects/<id>')
 def detail(id):
