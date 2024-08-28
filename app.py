@@ -24,6 +24,10 @@ import datetime
 @app.route('/', methods=['GET', 'POST'])
 # decorator
 def index():
+    '''
+    index
+    creates the entry point/home page for the site
+    '''
 
     projects = db.session.query(Project).all()
 
@@ -62,13 +66,16 @@ def create():
     return render_template('new_project.html', projects=projects)
 
 
-@app.route('/projects/<id>')
+@app.route('/projects/<int:id>')
 def detail(id):
-    return render_template('detail.html')
+    project=db.one_or_404(db.select(Project).filter_by(id=id))
+    skills=project.skills_practiced
+    
+    return render_template('detail.html',project=project,  id=id, skills=skills )
 
 
 @app.route('/projects/<id>/edit')
-def edit(id):
+def edit(id):   
     return render_template('edit_')
 
 
