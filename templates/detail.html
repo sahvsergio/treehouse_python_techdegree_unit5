@@ -1,45 +1,35 @@
-{% extends 'layout.html' %}
-        
-        {% block content %}
-            
-        
-            
+{% extends 'layout.html' %} {% block content %}
 
-        <section class="header">
-            <h1>Python Title</h1>
-            <p>Jan 2021</p>
-            <a href="#" class="github-btn">
-                <i class="fab fa-github"></i>
-                View on GitHub
-            </a>
-            <ul class="project-skills">
-                <div>
-                    <li>Catching exceptions</li>
-                    <li>Creating a loop</li>
-                    <li>Accepting user input</li>
-                    <li>Conditional statements</li>
-                </div>
-            </ul>
-        </section>
-        <section id="project-desc">
-            <div id="triangle5"></div>
-            <h2>Description</h2>
-            <p>
-                Lemon drops muffin macaroon pastry sweet muffin soufflé. 
-                Chocolate cake sesame snaps gummi bears tiramisu toffee. 
-                Ice cream toffee marshmallow sugar plum croissant chupa chups powder. 
-                Cotton candy sweet caramels pastry candy.
-            </p>
-            <div id="triangle6"></div>
-        </section>
-        <section id="edit-delete">
-            <a href="#">
-                <i class="fas fa-edit"></i>
-                Edit
-            </a>
-            <a href="#">
-                <i class="far fa-trash-alt"></i>
-                Delete
-            </a>
-        </section>
-       {% endblock content%}
+<section class="header">
+  <h1>{{project.title}}</h1>
+  <p>{{project.date}}1</p>
+  <a href="{{project.url}}" class="github-btn">
+    <i class="fab fa-github"></i>
+    View on GitHub
+  </a>
+  <ul class="project-skills">
+    <div> 
+
+       {% for skill in project.skills_practiced.split(',')  %}
+        <li>{{skill}}</li>
+       {% endfor %}
+    </div>
+  </ul>
+</section>
+<section id="project-desc">
+  <div id="triangle5"></div>
+  <h2>Description</h2>
+  <p>{{project.description}}</p>
+  <div id="triangle6"></div>
+</section>
+<section id="edit-delete">
+  <a href="#">
+    <i class="fas fa-edit"></i>
+    Edit
+  </a>
+  <a href="#">
+    <i class="far fa-trash-alt"></i>
+    Delete
+  </a>
+</section>
+{% endblock content%}
