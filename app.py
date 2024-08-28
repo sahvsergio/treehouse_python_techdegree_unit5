@@ -1,4 +1,3 @@
-
 """Provide several sample math calculations.
 
 This module allows the user to make mathematical calculations.
@@ -21,10 +20,6 @@ from models import Project, Flask, app, db
 import datetime
 
 
-months = ['January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December']
-
-
 # create routes(visible parts of the site- urls)
 @app.route('/', methods=['GET', 'POST'])
 # decorator
@@ -37,21 +32,22 @@ def index():
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def create():
+
+    
     '''Turns the string into a date object'''
-    #'title', 'Hello'), 
-    # ('date', '2024-12'), 
-    # ('desc', 'Helloo'), 
+    # 'title', 'Hello'),
+    # ('date', '2024-12'),
+    # ('desc', 'Helloo'),
     # ('skills', 'Python'),
     # ('github', 'https://www.bloghorror.com')])
     projects = db.session.query(Project).all()
-   
-    
-    
-   
     if request.form:
         date_format = '%Y-%m'
-        cleaned_date = datetime.datetime.strptime(request.form['date'], date_format)
-        new_project=Project(
+        cleaned_date = datetime.datetime.strptime(
+            request.form['date'],
+            date_format
+            )
+        new_project = Project(
             title=request.form['title'],
             date=cleaned_date,
             description=request.form['desc'],
@@ -62,17 +58,9 @@ def create():
         print(db.session.dirty)
         db.session.commit()
         return redirect(url_for('index'))
-       
+
     return render_template('new_project.html', projects=projects)
 
-        
-    
-        
-   
-    
-
-
-  
 
 @app.route('/projects/<id>')
 def detail(id):
@@ -81,7 +69,7 @@ def detail(id):
 
 @app.route('/projects/<id>/edit')
 def edit(id):
-    return render_template('detail.html')
+    return render_template('edit_')
 
 
 @app.route('/projects/<id>/delete')
