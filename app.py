@@ -74,9 +74,30 @@ def detail(id):
     return render_template('detail.html',project=project,  id=id, skills=skills )
 
 
-@app.route('/projects/<id>/edit')
-def edit(id):   
-    return render_template('edit_')
+@app.route('/projects/<id>/edit',methods=['GET', 'POST'])
+def edit(id):
+    project = db.one_or_404(db.select(Project).filter_by(id=id))
+    
+        
+    if request.form:
+        print(request.form)
+        project.title= request.form['title']
+        date_format = '%Y-%m'
+        date= request.form['date']
+        cleaned_date = datetime.datetime.strptime(
+            request.form['date'], date_format)
+        project.date=cleaned_date
+        project.description = request.form['desc']
+        project.skills_practiced = request.form['skills']
+        project.url = request.form['github']
+        
+        db.session.commit()
+
+        return redirect(url_for('index'))
+    
+
+    return render_template('edit_project.html', project=project)
+    
 
 
 @app.route('/projects/<id>/delete')

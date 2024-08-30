@@ -1,17 +1,17 @@
 
+{% block form_fields %}
 
-<section class="header">
-  <h1>New Project</h1>
-</section>
 
-<label for="title">Project Title</label>
-<input
-  type="text"
-  name="title"
-  id="title"
-  placeholder="Project Name"
-  required
-/>
+ <label for="title">Project Title</label>
+
+
+  <input
+    type="text"
+    name="title"
+    id="title"
+    placeholder="Project Name"
+    required
+  />
 <label for="date">Completion Date</label>
 <input type="month" name="date" id="date" required />
 <label for="description">Description</label>
@@ -41,6 +41,7 @@
   placeholder="Link to the repo"
   required
 />
+{% endblock form_fields %}
 <div>
   <button type="reset">Cancel</button>
   <button type="submit">Submit</button>
