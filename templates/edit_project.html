@@ -1,57 +1,36 @@
 
 {% extends 'layout.html' %}
+
+
         
         
-        {% block content %}
-            
+        {% block content %}            
         
             
         <section class="header">
-            <h1>New Project</h1>
+            <h1>Edit Project</h1>
         </section>
         <section id="form">
-            <form method="POST" action="{{ url_for('create') }}">
-                
-                   {% block form_fields %}
-                   <label for="title">Project Title</label>
-                  <input form_fields.input('title') value="{{project.title}}">
-                  <label for="date">Completion Date</label>
-                  <input form_fields.month('date') value="{{project.date}}">
-                  <label for="description">Description</label>
-                  <textarea form_fields.input('desc') >{{project.description}}</textarea>
-                  <label for="skills-list" id="skills-label">Skills</label>
-                  <p>Separate each skill by a comma</p>
-                  <textarea form_fields.textarea('skills')>{{project.skills_practiced}}</textarea>
-                  <label for="github">GitHub Link</label>
-                  <input form_fields.input('github') value="{{project.url}}">
-
-
-
-                   {% endblock form_fields %}
-        <div>
-            <button type="reset">Cancel</button>
-            <button type="submit">Submit</button>
-        </div>
-
-
-
-
-
-
-
-
-
-
-           
-                
-                
-                 
-                    
-                
-
-                
-              
+            <form method="POST" action="{{url_for('edit', id=project.id)}}">
+                {% block form_fields %}
+                    <label for="title">Project Title</label>
+                         <input form_fields.input('title') value="{{project.title}}">
+                    <label for="date">Completion Date</label>
+                        <input form_fields.month('date') value="{{project.date}}">
+                    <label for="description">Description</label>
+                        <textarea form_fields.input('desc') >{{project.description}}</textarea>
+                    <label for="skills-list" id="skills-label">Skills</label>
+                        <p>Separate each skill by a comma</p>
+                        <textarea form_fields.textarea('skills')>{{project.skills_practiced}}</textarea>
+                    <label for="github">GitHub Link</label>
+                        <input form_fields.input('github') value="{{project.url}}">
+                {% endblock form_fields %}
+                <div>
+                    <button type="reset">Cancel</button>
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </section>
+         
         {% endblock content %}
        
