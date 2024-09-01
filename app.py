@@ -70,7 +70,10 @@ def detail(id):
     project = db.one_or_404(db.select(Project).filter_by(id=id))
     skills = project.skills_practiced
 
-    return render_template('detail.html', project=project,  id=id, skills=skills, projects=projects)
+    return render_template('detail.html',
+                           project=project,
+                           id=id, skills=skills,
+                           projects=projects)
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
@@ -92,16 +95,29 @@ def edit(id):
             db.session.commit()
 
             return redirect(url_for('index'))
-    return render_template('edit_project.html', project=project, projects=projects, id=project.id)
+    return render_template('edit_project.html',
+                           project=project,
+                           projects=projects,
+                           id=project.id)
 
 
-@app.route('/projects/<id>/delete')
+@app.route('/projects/<int:id>/delete')
 def delete(id):
-    pass
+    projects = db.session.query(Project).all()
+    project = db.one_or_404(db.select(Project).filter_by(id=id))
+    db.session.delete(project)
+    db.session.commit()
+    print('project has been removed ')
+    return render_template('index.html', projects=projects)
+
+
+@app.route('/about')
+def about():
+
+    return render_template('about.html')
 
 
 if __name__ == '__main__':
-
     with app.app_context():
         # creating the engine
         engine = db.engine
