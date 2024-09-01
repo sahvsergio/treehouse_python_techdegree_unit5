@@ -36,8 +36,6 @@ def index():
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def create():
-
-    
     '''Turns the string into a date object'''
     # 'title', 'Hello'),
     # ('date', '2024-12'),
@@ -50,14 +48,14 @@ def create():
         cleaned_date = datetime.datetime.strptime(
             request.form['date'],
             date_format
-            )
+        )
         new_project = Project(
             title=request.form['title'],
             date=cleaned_date,
             description=request.form['desc'],
             skills_practiced=request.form['skills'],
             url=request.form['github']
-            )
+        )
         db.session.add(new_project)
         print(db.session.dirty)
         db.session.commit()
@@ -69,47 +67,37 @@ def create():
 @app.route('/projects/<int:id>')
 def detail(id):
     projects = db.session.query(Project).all()
-    project=db.one_or_404(db.select(Project).filter_by(id=id))
-    skills=project.skills_practiced
-    
-    return render_template('detail.html',project=project,  id=id, skills=skills, projects=projects )
+    project = db.one_or_404(db.select(Project).filter_by(id=id))
+    skills = project.skills_practiced
+
+    return render_template('detail.html', project=project,  id=id, skills=skills, projects=projects)
 
 
-@app.route('/projects/<int:id>/edit',methods=['GET', 'POST'])
+@app.route('/projects/<id>/edit', methods=['GET', 'POST'])
 def edit(id):
 
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
-    
-        
-    if request.form:
-        
-        project.title= request.form['title']
-        date_format = '%Y-%m'
-        date= request.form['date']
-        cleaned_date = datetime.datetime.strptime(
-            request.form['date'], date_format)
-        project.date=date
-        project.description = request.form['desc']
-        project.skills_practiced = request.form['skills']
-        project.url = request.form['github']
-        
-        db.commit()
+    if request.method == 'POST':
+        if request.form:
+            project.title = request.form['title']
+            date_format = '%Y-%m'
+            date = request.form['date']
+            cleaned_date = datetime.datetime.strptime(date, date_format)
+            project.date = cleaned_date
+            project.description = request.form['desc']
+            project.skills_practiced = request.form['skills']
+            project.url = request.form['github']
 
-        return redirect(url_for('index'))
-    
+            db.session.commit()
 
-    return render_template('edit_project.html', project=project,projects=projects)
-    
+            return redirect(url_for('index'))
+    return render_template('edit_project.html', project=project, projects=projects, id=project.id)
 
 
-@app.route('/projects/<int:id>/delete')
+@app.route('/projects/<id>/delete')
 def delete(id):
-    project = db.one_or_404(db.select(Project).filter_by(id=id))
-    db.session.delete(project)
-    db.session.commit()
-    return redirect(url_for('index'))
-   
+    pass
 
 
 if __name__ == '__main__':
