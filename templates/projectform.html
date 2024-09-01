@@ -1,4 +1,4 @@
-
+{% extends "layout.html" %}
 {% block form_fields %}
 
 
@@ -41,15 +41,13 @@
   placeholder="Link to the repo"
   required
 />
-{% endblock form_fields %}
-
-
-{% block  submit %}
-
-
 <div>
   <button type="reset">Cancel</button>
   <button type="submit">Submit</button>
 </div>
-{% endblock submit %}
+</form>
+{% endblock form_fields %}
+
+
+
 
