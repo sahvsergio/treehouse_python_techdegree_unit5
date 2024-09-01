@@ -75,7 +75,7 @@ def detail(id):
     return render_template('detail.html',project=project,  id=id, skills=skills, projects=projects )
 
 
-@app.route('/projects/<id>/edit',methods=['GET', 'POST'])
+@app.route('/projects/<int:id>/edit',methods=['GET', 'POST'])
 def edit(id):
     
 
@@ -99,9 +99,13 @@ def edit(id):
     
 
 
-@app.route('/projects/<id>/delete')
+@app.route('/projects/<int:id>/delete')
 def delete(id):
-    pass
+    project = db.one_or_404(db.select(Project).filter_by(id=id))
+    db.session.delete(project)
+    db.session.commit()
+    return redirect(url_for('index'))
+   
 
 
 if __name__ == '__main__':

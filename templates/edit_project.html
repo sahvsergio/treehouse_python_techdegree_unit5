@@ -1,18 +1,12 @@
-
 {% extends 'projectform.html' %}
 
-
-        
-        
-        {% block content %}            
-        
-            
-      <section class="header">
+{% block content %}
+    <section class="header">
         <h1>Edit Project</h1>
     </section>
     <section id="form">
         <form method="POST" action="{{ url_for('edit', id=id) }}">
-           
+            {{ form.csrf_token }}  <!-- Include CSRF token if needed -->
 
             <label for="title">Project Title</label>
             <input type="text" id="title" name="title" value="{{ project.title }}">
@@ -21,7 +15,7 @@
             <input type="month" id="date" name="date" value="{{ project.date }}">
 
             <label for="description">Description</label>
-            <textarea id="description" name="desc">{{ project.description }}</textarea>
+            <textarea id="description" name="description">{{ project.description }}</textarea>
 
             <label for="skills-list" id="skills-label">Skills</label>
             <p>Separate each skill by a comma</p>
@@ -36,7 +30,4 @@
             </div>
         </form>
     </section>
-                
-         
-        {% endblock content %}
-       
+{% endblock content %}
