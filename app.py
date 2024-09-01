@@ -77,25 +77,29 @@ def detail(id):
 
 @app.route('/projects/<int:id>/edit',methods=['GET', 'POST'])
 def edit(id):
-    
 
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
-    if request.method=='POST':
-        if request.form:
-            project.title= request.form['title']
-            date_format = '%Y-%m'
-            date= request.form['date']
-            cleaned_date = datetime.datetime.strptime(date, date_format)
-            project.date=cleaned_date
-            project.description = request.form['desc']
-            project.skills_practiced = request.form['skills']
-            project.url = request.form['github']
+    
         
-            db.session.commit()
+    if request.form:
+        
+        project.title= request.form['title']
+        date_format = '%Y-%m'
+        date= request.form['date']
+        cleaned_date = datetime.datetime.strptime(
+            request.form['date'], date_format)
+        project.date=date
+        project.description = request.form['desc']
+        project.skills_practiced = request.form['skills']
+        project.url = request.form['github']
+        
+        db.commit()
 
-            return redirect(url_for('index'))
-    return render_template('edit_project.html', project=project, projects=projects,id=project.id)
+        return redirect(url_for('index'))
+    
+
+    return render_template('edit_project.html', project=project,projects=projects)
     
 
 
