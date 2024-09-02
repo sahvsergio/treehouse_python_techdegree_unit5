@@ -15,7 +15,7 @@ from sqlalchemy import create_engine, cast, func, or_, select
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 # flask imports
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, url_for, flash
 from models import Project, Flask, app, db
 import datetime
 
@@ -86,9 +86,23 @@ def edit(id):
             project.title = request.form['title']
             date_format = '%Y-%m'
             date = request.form['date']
-            cleaned_date = datetime.datetime.strptime(date, date_format)
+            print(type(date))
+            date, time=(date.split(' '))
+            print(date)
+            year, month, day=date.split('-')
+            print(date)            
+            replaced_date=date.replace(f"-{day}",'' )
+        
+            
+           
+            cleaned_date=datetime.datetime.strptime(replaced_date, date_format)
+    
+            
+            #cleaned_date = datetime.datetime(year, month)
             project.date = cleaned_date
             project.description = request.form['desc']
+            project.date=cleaned_date
+           
             project.skills_practiced = request.form['skills']
             project.url = request.form['github']
 
@@ -107,8 +121,8 @@ def delete(id):
     project = db.one_or_404(db.select(Project).filter_by(id=id))
     db.session.delete(project)
     db.session.commit()
-    print('project has been removed ')
-    return render_template('index.html', projects=projects)
+    
+    return redirect(url_for('index'))
 
 
 @app.route('/about')

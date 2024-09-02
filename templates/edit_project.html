@@ -12,13 +12,13 @@
     </section>
     <section id="form">
         <form method="POST" action="{{ url_for('edit', id=id) }}">
-           
+          {% block form_fields %}
 
             <label for="title">Project Title</label>
             <input type="text" id="title" name="title" value="{{ project.title }}">
 
             <label for="date">Completion Date</label>
-            <input type="month" id="date" name="date" value="{{ project.date }}">
+            <input form_fields.month('date')  name='date' value="{{ project.date }}">
 
             <label for="description">Description</label>
             <textarea id="description" name="desc">{{ project.description }}</textarea>
@@ -29,7 +29,7 @@
 
             <label for="github">GitHub Link</label>
             <input type="url" id="github" name="github" value="{{ project.url }}">
-
+{% endblock %}
             <div>
                 <button type="reset">Cancel</button>
                 <button type="submit">Submit</button>
