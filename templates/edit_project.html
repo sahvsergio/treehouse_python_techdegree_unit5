@@ -18,7 +18,7 @@
             <input type="text" id="title" name="title" value="{{ project.title }}">
 
             <label for="date">Completion Date</label>
-            <input form_fields.month('date')  name='date' value="{{ project.date }}">
+            <input type="month"  name='date' value="{{ date }}">
 
             <label for="description">Description</label>
             <textarea id="description" name="desc">{{ project.description }}</textarea>

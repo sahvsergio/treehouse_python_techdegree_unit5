@@ -86,23 +86,11 @@ def edit(id):
             project.title = request.form['title']
             date_format = '%Y-%m'
             date = request.form['date']
-            print(type(date))
-            date, time=(date.split(' '))
+            year, month = date.split('-')
             print(date)
-            year, month, day=date.split('-')
-            print(date)            
-            replaced_date=date.replace(f"-{day}",'' )
-        
-            
-           
-            cleaned_date=datetime.datetime.strptime(replaced_date, date_format)
-    
-            
-            #cleaned_date = datetime.datetime(year, month)
-            project.date = cleaned_date
+            project.date = datetime.datetime.strptime(
+                request.form['date'], '%Y-%m')
             project.description = request.form['desc']
-            project.date=cleaned_date
-           
             project.skills_practiced = request.form['skills']
             project.url = request.form['github']
 
@@ -112,7 +100,11 @@ def edit(id):
     return render_template('edit_project.html',
                            project=project,
                            projects=projects,
-                           id=project.id)
+                           id=project.id,
+                           date=datetime.datetime.strftime(
+                               project.date.date(),
+                               '%Y-%m')
+                           )
 
 
 @app.route('/projects/<int:id>/delete')
@@ -121,7 +113,6 @@ def delete(id):
     project = db.one_or_404(db.select(Project).filter_by(id=id))
     db.session.delete(project)
     db.session.commit()
-    
     return redirect(url_for('index'))
 
 
@@ -134,7 +125,8 @@ def about():
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'), 404
+    projects = db.session.query(Project).all()
+    return render_template('404.html', projects=projects), 404
 
 
 if __name__ == '__main__':
