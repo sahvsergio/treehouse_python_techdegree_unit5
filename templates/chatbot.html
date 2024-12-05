@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Chatbot" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href='static/styles.css' />
+
+    <!--
+      Favicons
+      --
+    />
+
+   
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>My chatbot</title>
+    <!-- Google Console tag -->
+    <meta
+      name="google-site-verification"
+      content="Bzb5vFLVicZbODYVYfDQd8-eAknmug4dw7ixCZnB8fU"
+    />
+    <!--  JQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    {% block chatbot %}
+
+    <section id="chatbot-wrapper">
+      <h1 class="chat-header">
+        <img src="static/icons8-chatbot-100.png " />Let's
+        talk
+      </h1>
+
+      <div id="chatbot">
+        <ol>
+          <li class="botText"><span></span></li>
+        </ol>
+      </div>
+
+      <div id="userInput">
+        <input
+          type="text"
+          id="textInput"
+          name="userMessage"
+          placeholder="Enter your message"
+        />
+        <input type="submit" value="Send" id="buttonInput" />
+      </div>
+    </section>
+
+    {% endblock chatbot %}
+
+    <script>
+      function getUserResponse() {
+        var userText = $("#textInput").val();
+        var userHTML =
+          "<p class='userText'>User>:  <span></span>" + userText + "</p>";
+        $("#textInput").val("");
+        $("#chatbot").append(userHTML);
+        $.get("/chatbot/getResponse", { userMessage: userText }).done(function (
+          data
+        ) {
+          var returnedMessage =
+            "<li class='botText'>Chatbot> :<span>" + data + "</span><li>";
+          $("#chatbot").append(returnedMessage);
+        });
+      }
+      $("#buttonInput").click(function () {
+        getUserResponse();
+      });
+
+      
+    </script>
+  </body>
+</html>
