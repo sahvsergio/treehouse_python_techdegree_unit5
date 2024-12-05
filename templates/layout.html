@@ -120,12 +120,26 @@
                 getBotResponse();
             }
         })
+      </script>
+      <script>
 
-           
+   $(document).ready(function () {
+    // Initially hide the chatbot section
+    $('#chatbot').hide();
 
+    // Add event listener to the chatbot header
+    $('.chat-header').click(function () {
+        var chatbotWrapper = $('#chatbot');
+        chatbotWrapper.toggle(); // Toggle the visibility of the chatbot section
+    });
 
-
-          
-        </script>
+    // Add event listener to the submit button for the bot input
+    $('#buttonInput').click(function () {
+        var chatbotWrapper = $('#chatbot');
+        // Show the chatbot section when the submit button is clicked
+        chatbotWrapper.show();
+    });
+});
+</script>
     </body>
 </html>

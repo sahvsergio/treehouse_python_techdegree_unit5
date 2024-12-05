@@ -131,8 +131,8 @@ def about():
 @app.route("/get")
 def get_bot_response():
     userText = request.args.get('msg')
-    return userText
-    #return str(english_bot.get_response(userText))
+    #return userText
+    return str(english_bot.get_response(userText))
 
 
 @app.errorhandler(404)
