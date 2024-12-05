@@ -51,7 +51,7 @@
 
       <div id="chatbot">
         <ol>
-          <li class="botText"><span></span></li>
+          <li class="botText"><span>Hi, I'm serbot </span></li>
         </ol>
       </div>
 
@@ -68,26 +68,8 @@
 
     {% endblock chatbot %}
 
-    <script>
-      function getUserResponse() {
-        var userText = $("#textInput").val();
-        var userHTML =
-          "<p class='userText'>User>:  <span></span>" + userText + "</p>";
-        $("#textInput").val("");
-        $("#chatbot").append(userHTML);
-        $.get("/chatbot/getResponse", { userMessage: userText }).done(function (
-          data
-        ) {
-          var returnedMessage =
-            "<li class='botText'>Chatbot> :<span>" + data + "</span><li>";
-          $("#chatbot").append(returnedMessage);
-        });
-      }
-      $("#buttonInput").click(function () {
-        getUserResponse();
-      });
-
+  
       
-    </script>
+   
   </body>
 </html>

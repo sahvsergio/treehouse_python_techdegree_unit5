@@ -19,8 +19,13 @@ from flask import flash, redirect, render_template, request, url_for, flash
 from models import Project, Flask, app, db
 import datetime
 
+# chatbot
 
+#from chatterbot import ChatBot
+#from chatterbot.trainers import ChatterBotCorpusTrainer
 # create routes(visible parts of the site- urls)
+
+
 @app.route('/', methods=['GET', 'POST'])
 # decorator
 def index():
@@ -121,6 +126,13 @@ def about():
     projects = db.session.query(Project).all()
 
     return render_template('about.html', projects=projects)
+
+
+@app.route("/get")
+def get_bot_response():
+    userText = request.args.get('msg')
+    return userText
+    #return str(english_bot.get_response(userText))
 
 
 @app.errorhandler(404)
