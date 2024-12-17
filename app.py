@@ -10,6 +10,8 @@ The module contains the following functions:
 - `divide(a, b)` - Returns the quotient of two numbers.
 """
 # handling the database and models
+
+from flask import Flask
 import sqlalchemy
 from sqlalchemy import create_engine, cast, func, or_, select
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -19,11 +21,31 @@ from flask import flash, redirect, render_template, request, url_for, flash
 from models import Project, Flask, app, db
 import datetime
 
-# chatbot
 
-#from chatterbot import ChatBot
-#from chatterbot.trainers import ChatterBotCorpusTrainer
+#flask-admin
+from flask_admin import Admin
+
+
+from flask_admin import form
+
+from flask_bootstrap import Bootstrap
+
+from flask_admin.contrib.sqla import ModelView
+
+
+    
+
 # create routes(visible parts of the site- urls)
+
+# admin view
+##
+
+admin = Admin(app, name='Dashboard')
+
+
+
+
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -128,11 +150,6 @@ def about():
     return render_template('about.html', projects=projects)
 
 
-@app.route("/get")
-def get_bot_response():
-    userText = request.args.get('msg')
-    #return userText
-    return str(english_bot.get_response(userText))
 
 
 @app.errorhandler(404)
