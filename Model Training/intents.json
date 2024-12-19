@@ -1,59 +1,49 @@
 { "intents":[
     {"tag":"greeting",
-    "patterns":["Hi","How are you?","Hello", "Good Day", "Whats up", "Hey", "greeting"],
-    "responses":["Hello", "Good to see you","Hi there,How can I help?"]
+    "pattern":["Hi","How are you?","Hello", "Good Day", "Whats up", "Hey", "greeting", "Howdy", "Good day"],
+    "responses":["Hi there,How can I help?"]
 
     },
 
     {"tag":"goodbye",
-    "patterns":["GoodBye", "cya", "see you later","I am leaving","Have a good day", "bye ","ciao", "see ya" ],
-    "responses":["Sad to see you go:(","Talk to you later, ","GoodBye!"]
+    "pattern":["GoodBye", "cya", "see you later","I am leaving","Have a good day", "bye ","ciao", "see ya" ],
+    "response":["Sad to see you go"]
 
     },
 
 {"tag":"About you",
-"patterns":[" Who are you, and what do you specialize in?"],
-"responses":["I am developer and data analyst who specializes in web development, data analysis and visualization as well as RPA(Robotic Process Automation)"]
+"pattern":[" Who are you, and what do you specialize in?","Who are you?","What is your Specialty?", "What do you specialize in","What areas do you know?","What do you focus on? ","What is your expertise?","What do you develop?","What is your programming language of choice?"],
+"response":["I am developer and data analyst who specializes in web development, data analysis and visualization as well as RPA(Robotic Process Automation)"]
 },
 
 {"tag":"portfolio",
-"patterns":["Can you explain your projects or process?"],
-"responses":["Yes,definitely. My projects are command-line applications,web projects  and browser automation of process as well as data analysis and visualization"],
+"pattern":["Can you explain your projects or process?", "What are your projects", "What are your processes?","Do you have any projects?" ,"Can you tell me about your projects","What processes do you handle?","Can you explain the processes", "Can you explain the projects?" ],
+"response":[" My projects are command-line  inventory app, data visualization , data analysis and browser automation of processes"]
 },
-
-
 {
     "tag":"skills",
-    "patterns":["What tools or technologies do you use"],
-    "responses":["I currently use Python, SQLAlchemy, Matplotlib, Seaborn, Numpy, Selenium for my projects'"]
+    "pattern":["What tools or technologies do you use?", "What are your tools?","What technologies do you use?", "What tools do you use","What is your tech stack?","How do you program?", "What are your skills?","Tell me your skills"],
+    "response":["I currently use Python, SQLAlchemy, Matplotlib, Seaborn, Numpy, Selenium for my projects"]
 },
 
 
 {"tag":"services",
-"patterns":["Are you available for hire, and what do you offer?"],
-"responses":["Yes, I am available for hire, I offer freelance services for python-based web projects, data analytics,visualization"]
+"pattern":["Are you available for hire, and what do you offer?", "Are you open to work?","What do you offer?","Are you available for hire?","Tell me your services?", "What are your services?", "What can I hire you for?", "What services do you offer?"],
+"response":["I am available for hire, I offer freelance services for python-based web projects, data analytics,visualization"]
 
 },
 {
     "tag":"contact",
-    "patterns":["How can I reach you?"],
-    "responses":["You can reach me through  Linkedin here https://www.linkedin.com/in/sergioandresherreravelasquez/ or through the email sergioandresherrera@gmail.com, make sure to include <<project proposal>> as the subject"]
+    "pattern":["How can I reach you?", "How can I contact you", "Can I contact you?", "Can I reach out?","How can we communicate?","How can we discuss further?", "What is your email?","Do you have social media?"],
+    "response":["You can reach me through  Linkedin here https://www.linkedin.com/in/sergioandresherreravelasquez/ or through the email sergioandresherrera@gmail.com, make sure to include <<project proposal>> as the subject"]
 },
 {
-"tags":"clients",
-"patterns":["Do you have testimonials or a résumé?"],
-"responses":["I don\'t have testimonials as I am still working on building a clientele, but you can definitely find my résumé here https://drive.google.com/file/d/193kj8cko6DBmP04HVvkRyqqUIxk31hHt/view?usp=sharing"]
+"tag":"clients",
+"pattern":["Do you have testimonials or a résumé?", "Do you have testimonials?","Do you have a résumé?", "Who are your clients?", "Show me some testimonials", "Who have you worked for?", "Whats your experience?", "Do you have any referrals?"],
+"response":["I do not have testimonials as I am still working on building a clientele, but you can definitely find my résumé here https://drive.google.com/file/d/193kj8cko6DBmP04HVvkRyqqUIxk31hHt/view?usp=sharing"]
 }
-
-
-Clients: Do you have testimonials or a résumé?
-
-
-}
-
-
-
 ]
-
-
 }
+
+
+
