@@ -17,7 +17,7 @@ from sqlalchemy import create_engine, cast, func, or_, select
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 # flask imports
-from flask import flash, redirect, render_template, request, url_for, flash
+from flask import flash, redirect, render_template, request, url_for, flash, jsonify
 from models import Project, Flask, app, db
 import datetime
 
@@ -33,7 +33,7 @@ from flask_bootstrap import Bootstrap
 from flask_admin.contrib.sqla import ModelView
 
 
-    
+from utils import get_response, predict_class
 
 # create routes(visible parts of the site- urls)
 
@@ -151,6 +151,14 @@ def about():
 
 
 
+#chatbot
+@app.route('/handle_message',methods=['GET,POST'])
+def handle_message():
+    message=request.json['message']
+    intents_list=predict_class(message)
+    response=get_response(intents_list)
+    return jsonify({'response':response})
+    
 
 @app.errorhandler(404)
 def not_found(error):
