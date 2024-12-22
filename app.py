@@ -61,6 +61,7 @@ def index():
     return render_template('index.html', projects=projects)
 
 
+
 @app.route('/projects/new', methods=['GET', 'POST'])
 def create():
     '''Turns the string into a date object'''
@@ -152,14 +153,22 @@ def about():
 
 
 #chatbot
-@app.route('/handle_message',methods=['GET,POST'])
+@app.route('/chatbot')
+def chatbot():
+    
+    return render_template('chatbot.html')
+
+
+"""
+@app.route('/handle_message')
 def handle_message():
     message=request.json['message']
     intents_list=predict_class(message)
     response=get_response(intents_list)
-    return jsonify({'response':response})
+    new_response = jsonify({'response': response})
+    return render_template('chatbot.html')
     
-
+"""
 @app.errorhandler(404)
 def not_found(error):
     projects = db.session.query(Project).all()
@@ -175,4 +184,4 @@ if __name__ == '__main__':
     # making the app run, you just need to run the app.py file on the terminal
     # local app.run(debug=True , port=8000, host='127.0.0.1')
     # internet
-    app.run(port=8000, host='127.0.0.1')
+    app.run(debug=True, port=8000, host='127.0.0.1')
