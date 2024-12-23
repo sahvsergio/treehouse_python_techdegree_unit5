@@ -39,11 +39,13 @@ def predict_class(sentence):
     return return_list
 
 def get_response(intents_list):
-    intents_json=json.loads('model/intents.json')
-    tag=intents[0]['intent']
-    list_of_intents=intents_json['intents']
-    for i in list_of_intents:
-        if i['tag']==tag:
-            result=random.choice(i['responses'])
-            break
+    with open('model/intents.json') as f:
+        intents_json=json.load(f)
+        tag=intents_list[0]['intent']
+        list_of_intents=intents_json['intents']
+        for i in list_of_intents:
+            if i['tag']==tag:
+                result=random.choice(i['response'])
+                break
+    return (result)
     

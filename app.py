@@ -153,22 +153,31 @@ def about():
 
 
 #chatbot
-@app.route('/chatbot')
-def chatbot():
-    
-    return render_template('chatbot.html')
 
 
-"""
-@app.route('/handle_message')
+@app.route('/handle_message', methods=[ 'POST'])
+
+#def handle_message():
 def handle_message():
-    message=request.json['message']
+    message = request.json['message']
     intents_list=predict_class(message)
+    intent_list=predict_class(message)
     response=get_response(intents_list)
-    new_response = jsonify({'response': response})
-    return render_template('chatbot.html')
+    return jsonify({'response':response})
     
-"""
+  
+
+    
+    
+
+
+#    message=request.json['message']
+#    intents_list=predict_class(message)
+#    response=get_response(intents_list)
+#    return jsonify({'response': response})
+
+    
+
 @app.errorhandler(404)
 def not_found(error):
     projects = db.session.query(Project).all()

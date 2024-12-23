@@ -99,12 +99,45 @@
         <script src="" async defer></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
       <script>
-         $(document).ready(function () {
-    // Initially hide the chatbot section
-    $('#chatbot').hide();
+      $(document).ready(function () {
+        $("#chat-toggle").click(function () {
+          $("#chat-content").slideToggle("fast");
+        });
+        $("#send-button").click(function () {
+          sendMessage();
+        });
+        $("#user-input").keypress(function (e) {
+          if (e.which == 13) {
+            sendMessage();
+          }
+        });
 
-         };)
+        function sendMessage() {
+          var message = $("#user-input").val();
+          if (message.trim() != "") {
+            $("#chat-messages").append(
+              '<div class="message">' + message + "</div>"
+            );
+            $("#user-input").val("");
+            $.ajax({
+              url: "/handle_message",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({ message: message }),
+              success: function (data) {
+                $("#chat-messages").append(
+                  '<div class="message received">' + data.response + "</div>"
+                );
+                $("#chat-message").scrollTop(
+                  $("#chat-messages")[0].scrollHeight
+                );
+              },
+            });
+          }
+        }
+      });
+    </script>
 
-      </script>
+ 
     </body>
 </html>

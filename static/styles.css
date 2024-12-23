@@ -555,15 +555,15 @@ EXCEEDS - About Page
 Chatbot 
 *******/
 
-#Chatbot{
+#chat-box{
   margin-left: 70%;
   width: 260px;
-  background-color: #fff;
+  background-color: var(--secondary);
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
-.chat-header {
+.chat-toggle {
   background-color: var(--primary);
   color: #fff;
   padding: 10px;
@@ -602,6 +602,10 @@ Chatbot
   padding: 5px 10px;
   cursor: pointer;
 }
+
+/*******
+End Chatbot
+*******/
 
 footer {
   margin-top: 30px;
