@@ -8,7 +8,14 @@ import random
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = "3"
 
-nltk.download('punkt_tab')
+
+def setup_nltk_data():
+    print("Downloading necessary NLTK resources...")
+    nltk.download('punkt')        # General tokenizer models
+    # Specific tokenizer resource for your use case
+    nltk.download('punkt_tab')
+    print("NLTK resources downloaded successfully.")
+    
 def clean_up_sentence(sentence):
     lemmatizer=WordNetLemmatizer()
     ignore_symbols = ['?', '!', '.', ',']
@@ -50,3 +57,4 @@ def get_response(intents_list):
                 break
     return (result)
     
+

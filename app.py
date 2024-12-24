@@ -33,8 +33,9 @@ from flask_bootstrap import Bootstrap
 from flask_admin.contrib.sqla import ModelView
 
 
-from utils import get_response, predict_class
+from utils import setup_nltk_data,get_response, predict_class
 
+setup_nltk_data.setup_nltk_data()
 # create routes(visible parts of the site- urls)
 
 # admin view
