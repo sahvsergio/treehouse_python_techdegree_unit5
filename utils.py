@@ -14,6 +14,7 @@ def setup_nltk_data():
     nltk.download('punkt')        # General tokenizer models
     # Specific tokenizer resource for your use case
     nltk.download('punkt_tab')
+    nltk.download('wordnet')
     print("NLTK resources downloaded successfully.")
     
 def clean_up_sentence(sentence):
