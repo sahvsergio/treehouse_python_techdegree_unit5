@@ -8,6 +8,7 @@ import random
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = "3"
 
+nltk.download('punkt_tab')
 def clean_up_sentence(sentence):
     lemmatizer=WordNetLemmatizer()
     ignore_symbols = ['?', '!', '.', ',']
