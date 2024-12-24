@@ -16,7 +16,7 @@ import datetime
 import os
 
 # create the and also assign the instance path to  the current directory
-app = Flask(__name__, instance_path=f'{os.getcwd()}')
+app = Flask(__name__, instance_path=f'{os.getcwd()}', template_folder='templates')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projects.db'
 db = SQLAlchemy(app)
