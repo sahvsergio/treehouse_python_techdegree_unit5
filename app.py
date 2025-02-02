@@ -33,9 +33,6 @@ from flask_bootstrap import Bootstrap
 from flask_admin.contrib.sqla import ModelView
 
 
-from utils import setup_nltk_data,get_response, predict_class
-
-setup_nltk_data()
 # create routes(visible parts of the site- urls)
 
 # admin view
@@ -194,4 +191,4 @@ if __name__ == '__main__':
     # making the app run, you just need to run the app.py file on the terminal
     # local app.run(debug=True , port=8000, host='127.0.0.1')
     # internet
-    app.run( port=8000, host='127.0.0.1')
+    app.run( port=8000,debug=True, host='127.0.0.1')
