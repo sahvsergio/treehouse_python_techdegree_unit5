@@ -1,40 +1,55 @@
-$(document).ready(function(){
-    $('#chat-toggle').click(function(){
-        $('#chat-content').slideToggle('fast');
 
-    });
-    $('#send-button').click(function(){
-        sendMessage();
-    });
-    $('#user-Input').keypress(function(e){
+let navigation = document.querySelector(".navigation"); 
 
-        if(e.which==13){
-            sendMessage();
-        }
-    })
-    
-    function sendMessage(){
-        var message= $('#user-input').val();
-        if(message.trim()!=''){
-            $('#chat-messages').append('<div class="message">'+ message + '</div>');
-            $('#user-input').val('');
-            $.ajax({
-                url:'/handle_message',
-                type:'POST',
-                contentType:'application/json',
-                data:JSON.stringify({message:message}),
-                success:function(data){
-                    $('#chat-messages').append('<div class="message received">'+ data.response + '</div>');
-                    $('#chat-message').scrollTop($('#chat-messages')[0].scrollHeight);
-                }
-                
-            })
+function addNavigation(projects) {
+  let navBar=document.createElement('nav');
+  let containerFluid=document.createElement('div');
+  navigation.insert
+ 
+}
+  
+ 
 
+  
+/*
 
+<nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Sergio Herrera</a>
+                  <button class="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('about')}}">About</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index')+'#skills'}}">Skills</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Projects
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          {% for  project in projects %}
+                            <li><a class="dropdown-item" href="{{url_for('detail', id=project.id)}}">{{ project.title }}</a></li>
+                          {% endfor %}
+                          
+                        </ul>
+                      
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index')+'#contact'}}">Contact</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('create')}}">Add Project</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </nav>
 
-        }
-    }
-
-
-
-});
+*/
