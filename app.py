@@ -149,46 +149,19 @@ def about():
     return render_template('about.html', projects=projects)
 
 
-
-#chatbot
-
-
-@app.route('/handle_message', methods=[ 'POST'])
-
-#def handle_message():
-def handle_message():
-    message = request.json['message']
-    intents_list=predict_class(message)
-    intent_list=predict_class(message)
-    response=get_response(intents_list)
-    return jsonify({'response':response})
-    
-  
-
-    
-    
-
-
-#    message=request.json['message']
-#    intents_list=predict_class(message)
-#    response=get_response(intents_list)
-#    return jsonify({'response': response})
-
-    
-
 @app.errorhandler(404)
 def not_found(error):
     projects = db.session.query(Project).all()
     return render_template('404.html', projects=projects), 404
 
 
-#if __name__ == '__main__':
-    #with app.app_context():
+if __name__ == '__main__':
+    with app.app_context():
         # creating the engine
-        #engine = db.engine
-        #db.create_all()
+        engine = db.engine
+        db.create_all()
 
     # making the app run, you just need to run the app.py file on the terminal
     # local app.run(debug=True , port=8000, host='127.0.0.1')
-    # internet
-    #app.run( port=8000,debug=False, host='127.0.0.1')
+     #internet
+    app.run( port=8000,debug=False, host='127.0.0.1')
