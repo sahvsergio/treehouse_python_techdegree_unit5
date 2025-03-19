@@ -551,61 +551,7 @@ EXCEEDS - About Page
   padding-right: 10px;
 }
 
-/*******
-Chatbot 
-*******/
 
-#chat-box{
-  margin-left: 70%;
-  width: 260px;
-  background-color: var(--secondary);
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-.chat-toggle {
-  background-color: var(--primary);
-  color: #fff;
-  padding: 10px;
-  font-size: 18px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-#chatbot {
-  height: 220px;
-  overflow-y: scroll;
-}
-.botText {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#userInput {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-}
-#textInput {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 5px;
-  font-size: 14px;
-}
-#buttonInput {
-  border: none;
-  outline: none;
-  background-color: var(--secondary);
-  color: var(--accent);
-  font-size: 14px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-/*******
-End Chatbot
-*******/
 
 footer {
   margin-top: 30px;
