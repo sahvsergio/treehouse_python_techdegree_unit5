@@ -33,9 +33,7 @@ from flask_admin import form
 from flask_admin.contrib.sqla import ModelView
 
 
-app.config['BASIC_AUTH_USERNAME'] = 'john'
-app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
-basic_auth = BasicAuth(app)
+
 
 # create routes(visible parts of the site- urls)
 
@@ -54,7 +52,7 @@ def index():
 
 
 @app.route('/projects/new', methods=['GET', 'POST'])
-@basic_auth.required
+
 def create():
     '''Turns the string into a date object'''
     # 'title', 'Hello'),
@@ -97,7 +95,7 @@ def detail(id):
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
-@basic_auth.required
+
 def edit(id):
 
     projects = db.session.query(Project).all()
@@ -129,7 +127,7 @@ def edit(id):
 
 
 @app.route('/projects/<int:id>/delete')
-@basic_auth.required
+
 def delete(id):
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
