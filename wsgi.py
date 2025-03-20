@@ -1,4 +1,4 @@
-from app import app
+from models  import app, db
 
 # WSGI requires an application callable
 application = app
