@@ -33,7 +33,8 @@ from flask_admin import form
 from flask_admin.contrib.sqla import ModelView
 
 
-
+app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+admin = Admin(app, name='microblog', template_mode='bootstrap3')
 
 # create routes(visible parts of the site- urls)
 
