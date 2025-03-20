@@ -22,19 +22,29 @@ from models import Project, Flask, app, db
 from flask_basicauth import BasicAuth
 import datetime
 
+app.config['BASIC_AUTH_USERNAME'] = 'john'
+app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
+
 
 #flask-admin
 from flask_admin import Admin
 
 
 from flask_admin import form
-
+basic_auth=BasicAuth(app)
 
 from flask_admin.contrib.sqla import ModelView
 
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+
+
+
 admin = Admin(app, name='microblog', template_mode='bootstrap3')
+
+
+
+admin.add_view(ModelView(Project, db.session))
 
 # create routes(visible parts of the site- urls)
 
@@ -53,7 +63,7 @@ def index():
 
 
 @app.route('/projects/new', methods=['GET', 'POST'])
-
+@basic_auth.required
 def create():
     '''Turns the string into a date object'''
     # 'title', 'Hello'),
@@ -96,7 +106,7 @@ def detail(id):
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
-
+@basic_auth.required
 def edit(id):
 
     projects = db.session.query(Project).all()
@@ -128,7 +138,7 @@ def edit(id):
 
 
 @app.route('/projects/<int:id>/delete')
-
+@basic_auth.required
 def delete(id):
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
