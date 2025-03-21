@@ -12,6 +12,7 @@ The module contains the following functions:
 # handling the database and models
 
 from flask import Flask
+from flask import abort
 import sqlalchemy
 from sqlalchemy import create_engine, cast, func, or_, select
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -24,6 +25,7 @@ import datetime
 
 app.config['BASIC_AUTH_USERNAME'] = 'john'
 app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
+basic_auth = BasicAuth(app)
 
 
 #flask-admin
@@ -31,7 +33,7 @@ from flask_admin import Admin
 
 
 from flask_admin import form
-basic_auth=BasicAuth(app)
+
 
 from flask_admin.contrib.sqla import ModelView
 
@@ -43,8 +45,16 @@ app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 admin = Admin(app, name='microblog', template_mode='bootstrap3')
 
 
+class ProjectView(ModelView):
+    def is_accessible(self):
+        return basic_auth.authenticate()
 
-admin.add_view(ModelView(Project, db.session))
+    def inaccessible_callback(self, name, **kwargs):
+        abort(401)
+
+
+
+admin.add_view(ProjectView(Project, db.session))
 
 # create routes(visible parts of the site- urls)
 
