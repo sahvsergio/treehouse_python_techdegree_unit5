@@ -23,6 +23,7 @@ from models import Project, Flask, app, db
 from flask_basicauth import BasicAuth
 import datetime
 
+
 app.config['BASIC_AUTH_USERNAME'] = 'john'
 app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
 basic_auth = BasicAuth(app)
@@ -38,25 +39,28 @@ from flask_admin import form
 from flask_admin.contrib.sqla import ModelView
 
 
-app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+app.config['FLASK_ADMIN_SWATCH'] = 'cyborg'
 
 
 
-admin = Admin(app, name='microblog', template_mode='bootstrap3')
+admin = Admin(app, name='My portfolio', template_mode='bootstrap3')
 
 
 class ProjectView(ModelView):
-    def is_accessible(self):
-        return basic_auth.authenticate()
+    ...
+   
+        
+    
+    
+ 
+   
+    
 
-    def inaccessible_callback(self, name, **kwargs):
-        abort(401)
 
 
-
-admin.add_view(ProjectView(Project, db.session))
 
 # create routes(visible parts of the site- urls)
+
 
 @app.route('/', methods=['GET', 'POST'])
 # decorator
@@ -178,4 +182,4 @@ if __name__ == '__main__':
         # making the app run, you just need to run the app.py file on the terminal
         # local app.run(debug=True , port=8000, host='127.0.0.1')
      #internet
-  app.run( port=5000,debug=True, host='0.0.0.0')
+  app.run( port=3000,debug=True, host='0.0.0.0')
