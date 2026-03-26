@@ -33,6 +33,10 @@ def test_connection():
     except Exception as e:
         print("❌ MySQL connection failed:", e)
 
+with app.app_context():
+    db.create_all()
+    print("✅ Tables created (if they didn't exist)")
+
 test_connection()
 
 # Correct model
