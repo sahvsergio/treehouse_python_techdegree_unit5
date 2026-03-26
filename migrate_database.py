@@ -1,8 +1,8 @@
 import sqlite3
-from urllib.parse import quote_plus
-from sqlalchemy import create_engine, Table, Column, Integer, String, DateTime, MetaData
 import os
 import datetime
+from urllib.parse import quote_plus
+from sqlalchemy import create_engine, Table, Column, Integer, String, DateTime, MetaData, text
 
 # 🔹 Environment variables
 DB_USER = os.getenv("DB_USER")
@@ -18,7 +18,12 @@ DB_PASSWORD_QUOTED = quote_plus(DB_PASSWORD)
 
 # 🔹 Connect to MySQL
 mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD_QUOTED}@{DB_HOST}/{DB_NAME}"
-engine = create_engine(mysql_url)
+engine = create_engine(mysql_url, future=True)
+
+# 🔹 Drop table if exists (optional)
+with engine.connect() as conn:
+    conn.execute(text("DROP TABLE IF EXISTS my_projects;"))
+    conn.commit()
 
 # 🔹 Define new table schema
 metadata = MetaData()
@@ -34,9 +39,7 @@ projects_table = Table(
     Column("url", String(255)),
 )
 
-# 🔹 Drop table if exists and create fresh table
-with engine.connect() as conn:
-    conn.execute("DROP TABLE IF EXISTS my_projects;")
+# 🔹 Create table in MySQL
 metadata.create_all(engine)
 
 # 🔹 Connect to old SQLite database
@@ -50,8 +53,8 @@ sqlite_cursor.execute("""
 """)
 rows = sqlite_cursor.fetchall()
 
-# 🔹 Insert rows into MySQL with transaction to ensure commit
-with engine.begin() as conn:  # begin() ensures commit
+# 🔹 Insert rows into MySQL
+with engine.connect() as conn:
     for row in rows:
         id_, title, date_str, description, skills, github = row
 
@@ -73,6 +76,7 @@ with engine.begin() as conn:  # begin() ensures commit
             url=github
         )
         conn.execute(insert_stmt)
+    conn.commit()  # commit all inserts
 
 sqlite_conn.close()
 print(f"✅ Migrated {len(rows)} projects from SQLite to MySQL")
