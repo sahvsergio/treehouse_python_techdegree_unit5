@@ -1,100 +1,44 @@
-"""Provide several sample math calculations.
-
-This module allows the user to make mathematical calculations.
-
-The module contains the following functions:
-
-- `add(a, b)` - Returns the sum of two numbers.
-- `subtract(a, b)` - Returns the difference of two numbers.
-- `multiply(a, b)` - Returns the product of two numbers.
-- `divide(a, b)` - Returns the quotient of two numbers.
-"""
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import os
 from urllib.parse import quote_plus
 
+app = Flask(__name__, template_folder='templates')
 
-
-
-# create the and also assign the instance path to  the current directory
-app = Flask(__name__, instance_path=f'{os.getcwd()}', template_folder='templates')
-
-# 🔹 Load environment variables
+# Environment variables
 DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_PASSWORD = quote_plus(os.getenv('DB_PASSWORD'))
 DB_HOST = os.getenv('DB_HOST')
 DB_NAME = os.getenv('DB_NAME')
 
-# 🔹 MySQL connection
+if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
+    raise RuntimeError("Database environment variables are not set")
+
+# SQLAlchemy connection
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 )
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
-
 class Project(db.Model):
-    """
-    A class used to represent a project
-
-    ...
-
-    Attributes
-    ----------
-    says_str : str
-        a formatted string to print out what the animal says
-    name : str
-        the name of the animal
-    sound : str
-        the sound that the animal makes
-    num_legs : int
-        the number of legs the animal has (default 4)
-
-    Methods
-    -------
-    says(sound=None)
-        Prints the animals name and what sound it makes
-    """
     __tablename__ = 'my_projects'
-    id = db.Column(db.Integer, primary_key=True)  # primary key
-    # timestamp when the item was created
 
-    title=db.Column('Title', db.String())
-    date = db.Column('Date',  db.DateTime, default=datetime.datetime.now)
-    description=db.Column('Description', db.String())
-    skills_practiced =db.Column(db.String())
-    url = db.Column('GitHub Repo', db.String())
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column('title', db.String(255))
+    date = db.Column('date', db.DateTime, default=datetime.datetime.now)
+    description = db.Column('description', db.String(500))
+    skills_practiced = db.Column('skills_practiced', db.String(255))
+    url = db.Column('github_repo', db.String(255))
 
-
-# finish creating the fields here, before setting the site again
     def __repr__(self):
-
-        """
-        Prints what the animals name is and what sound it makes.
-
-        If the argument `sound` isn't passed in, the default Animal
-        sound is used.
-
-        Parameters
-        ----------
-        sound : str, optional
-            The sound the animal makes (default is None)
-
-        Raises
-        ------
-        NotImplementedError
-            If no sound is set for the animal or passed in as a
-            parameter.
-        """
-        return f'''
-    Project(
-    Title:{self.title},
-    Date:{self.date},
-    Description: {self.description},
-    Skills Practiced: {self.skills_practiced},
-    Repo link: {self.url}
-    '''
+        return (
+            f"Project("
+            f"Title: {self.title}, "
+            f"Date: {self.date}, "
+            f"Description: {self.description}, "
+            f"Skills Practiced: {self.skills_practiced}, "
+            f"Repo link: {self.url})"
+        )
