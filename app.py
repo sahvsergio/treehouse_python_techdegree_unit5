@@ -20,7 +20,7 @@ import datetime
 from io import StringIO
 import csv
 
-admin = Admin(app, name='microblog', theme=Bootstrap4Theme())
+admin = Admin(app, name='microblog', theme=Simplex)
 admin.add_view(ModelView(Project, db.session))
 
 
