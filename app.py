@@ -22,6 +22,9 @@ from flask import flash, redirect, render_template, request, url_for, flash, jso
 from models import Project, Flask, app, db
 from flask_basicauth import BasicAuth
 import datetime
+from io import StringIO
+import csv
+from flask import Response
 
 
 app.config['BASIC_AUTH_USERNAME'] = 'john'
@@ -173,6 +176,69 @@ def not_found(error):
     projects = db.session.query(Project).all()
     return render_template('404.html', projects=projects), 404
 
+@app.route('/backup')
+@basic_auth.required
+def backup():
+    output = StringIO()
+    writer = csv.writer(output)
+
+    writer.writerow([
+        'id',
+        'title',
+        'date',
+        'description',
+        'skills',
+        'url'
+    ])
+
+    projects = db.session.query(Project).all()
+
+    for p in projects:
+        writer.writerow([
+            p.id,
+            p.title,
+            p.date,
+            p.description,
+            p.skills_practiced,
+            p.url
+        ])
+
+    output.seek(0)
+
+    return Response(
+        output,
+        mimetype="text/csv",
+        headers={
+            "Content-Disposition": "attachment;filename=projects_backup.csv"
+        }
+    )
+
+@app.route('/import', methods=['POST'])
+@basic_auth.required
+def import_csv():
+    file = request.files['file']
+
+    stream = StringIO(file.stream.read().decode("UTF8"), newline=None)
+    csv_data = csv.DictReader(stream)
+
+    for row in csv_data:
+        existing = db.session.query(Project).filter_by(
+            title=row['title']
+        ).first()
+
+        if not existing:
+            new_project = Project(
+                title=row['title'],
+                date=datetime.datetime.strptime(row['date'], '%Y-%m'),
+                description=row['description'],
+                skills_practiced=row['skills'],
+                url=row['url']
+            )
+            db.session.add(new_project)
+
+    db.session.commit()
+
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
   with app.app_context():
