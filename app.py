@@ -11,8 +11,7 @@ from models import Project, app, db
 # ------------------------
 # ADMIN
 # ------------------------
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin
 
 # ------------------------
 # UTILITIES
@@ -21,57 +20,14 @@ import datetime
 from io import StringIO
 import csv
 
-# ------------------------
-# BASIC AUTH (MANUAL)
-# ------------------------
-USERNAME = 'john'
-PASSWORD = 'matrix'
+admin = Admin(app, name='microblog', theme=Bootstrap4Theme())
+admin.add_view(ModelView(Project, db.session))
 
 
-def check_auth():
-    auth = request.authorization
-    return auth and auth.username == USERNAME and auth.password == PASSWORD
 
 
-def authenticate():
-    return Response(
-        'Login Required',
-        401,
-        {'WWW-Authenticate': 'Basic realm="Login Required"'}
-    )
-
-# ------------------------
-# CUSTOM ADMIN INDEX (CORRECT WAY)
-# ------------------------
-class MyAdminIndexView(AdminIndexView):
-    def dispatch_request(self):
-        if not check_auth():
-            return authenticate()
-        return super().dispatch_request()
-
-# ------------------------
-# ADMIN SETUP (CRITICAL FIX HERE)
-# ------------------------
-admin = Admin(
-    app,
-    name='My portfolio',
-    template_mode='bootstrap3',
-    index_view=MyAdminIndexView(url='/admin')  # ✅ MUST be here
-)
-
-# ------------------------
-# MODEL VIEW (PROTECTED)
-# ------------------------
-class ProjectView(ModelView):
-
-    def is_accessible(self):
-        return check_auth()
-
-    def inaccessible_callback(self, name, **kwargs):
-        return authenticate()
 
 
-admin.add_view(ProjectView(Project, db.session))
 
 # ------------------------
 # ROUTES
@@ -168,77 +124,6 @@ def delete(id):
 def about():
     projects = db.session.query(Project).all()
     return render_template('about.html', projects=projects)
-
-
-# ------------------------
-# BACKUP (CSV DOWNLOAD)
-# ------------------------
-@app.route('/backup')
-def backup():
-    if not check_auth():
-        return authenticate()
-
-    output = StringIO()
-    writer = csv.writer(output)
-
-    writer.writerow([
-        'id', 'title', 'date', 'description', 'skills', 'url'
-    ])
-
-    projects = db.session.query(Project).all()
-
-    for p in projects:
-        writer.writerow([
-            p.id,
-            p.title,
-            p.date,
-            p.description,
-            p.skills_practiced,
-            p.url
-        ])
-
-    output.seek(0)
-
-    return Response(
-        output,
-        mimetype="text/csv",
-        headers={
-            "Content-Disposition": "attachment;filename=projects_backup.csv"
-        }
-    )
-
-
-# ------------------------
-# IMPORT CSV
-# ------------------------
-@app.route('/import', methods=['POST'])
-def import_csv():
-    if not check_auth():
-        return authenticate()
-
-    file = request.files['file']
-
-    stream = StringIO(file.stream.read().decode("UTF8"), newline=None)
-    csv_data = csv.DictReader(stream)
-
-    for row in csv_data:
-        existing = db.session.query(Project).filter_by(
-            title=row['title']
-        ).first()
-
-        if not existing:
-            new_project = Project(
-                title=row['title'],
-                date=datetime.datetime.strptime(row['date'], '%Y-%m'),
-                description=row['description'],
-                skills_practiced=row['skills'],
-                url=row['url']
-            )
-            db.session.add(new_project)
-
-    db.session.commit()
-
-    return redirect(url_for('index'))
 
 
 # ------------------------
