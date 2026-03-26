@@ -14,11 +14,26 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 import os
+from urllib.parse import quote_plus
+
+
+
 
 # create the and also assign the instance path to  the current directory
 app = Flask(__name__, instance_path=f'{os.getcwd()}', template_folder='templates')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///projects.db'
+# 🔹 Load environment variables
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = quote_plus(os.getenv('DB_PASSWORD') or "")
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
+
+# 🔹 MySQL connection
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+)
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -51,7 +66,7 @@ class Project(db.Model):
     title=db.Column('Title', db.String())
     date = db.Column('Date',  db.DateTime, default=datetime.datetime.now)
     description=db.Column('Description', db.String())
-    skills_practiced = db.Column('Skills Practice', db.String())
+    skills_practiced =db.Column(db.String())
     url = db.Column('GitHub Repo', db.String())
 
 
