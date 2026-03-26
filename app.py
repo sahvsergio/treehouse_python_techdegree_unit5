@@ -2,14 +2,14 @@
 # CORE IMPORTS
 # ------------------------
 from flask import (
-    Flask, abort, flash, redirect, render_template,
-    request, url_for, jsonify, Response
+    abort, redirect, render_template,
+    request, url_for, Response
 )
 
 from models import Project, app, db
 
 # ------------------------
-# ADMIN + AUTH
+# ADMIN
 # ------------------------
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
@@ -22,61 +22,61 @@ from io import StringIO
 import csv
 
 # ------------------------
-# BASIC AUTH CONFIG
+# BASIC AUTH (MANUAL)
 # ------------------------
 USERNAME = 'john'
 PASSWORD = 'matrix'
 
+
+def check_auth():
+    auth = request.authorization
+    return auth and auth.username == USERNAME and auth.password == PASSWORD
+
+
+def authenticate():
+    return Response(
+        'Login Required',
+        401,
+        {'WWW-Authenticate': 'Basic realm="Login Required"'}
+    )
+
 # ------------------------
-# CUSTOM ADMIN INDEX (FORCES LOGIN POPUP)
+# CUSTOM ADMIN INDEX (CORRECT WAY)
 # ------------------------
 class MyAdminIndexView(AdminIndexView):
     def dispatch_request(self):
-        auth = request.authorization
-
-        if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-            return Response(
-                'Login Required',
-                401,
-                {'WWW-Authenticate': 'Basic realm="Login Required"'}
-            )
-
+        if not check_auth():
+            return authenticate()
         return super().dispatch_request()
 
 # ------------------------
-# ADMIN SETUP (IMPORTANT ORDER)
+# ADMIN SETUP (CRITICAL FIX HERE)
 # ------------------------
 admin = Admin(
     app,
     name='My portfolio',
-    template_mode='bootstrap3'
+    template_mode='bootstrap3',
+    index_view=MyAdminIndexView(url='/admin')  # ✅ MUST be here
 )
 
-admin.index_view = MyAdminIndexView()
-admin.index_view.url = '/admin'
-admin.index_view.endpoint = 'admin'
-
 # ------------------------
-# PROTECT MODELS TOO
+# MODEL VIEW (PROTECTED)
 # ------------------------
 class ProjectView(ModelView):
+
     def is_accessible(self):
-        auth = request.authorization
-        return auth and (auth.username == USERNAME and auth.password == PASSWORD)
+        return check_auth()
 
     def inaccessible_callback(self, name, **kwargs):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+        return authenticate()
+
 
 admin.add_view(ProjectView(Project, db.session))
 
 # ------------------------
 # ROUTES
 # ------------------------
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
     projects = db.session.query(Project).all()
     return render_template('index.html', projects=projects)
@@ -84,15 +84,10 @@ def index():
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 def create():
-    projects = db.session.query(Project).all()
+    if not check_auth():
+        return authenticate()
 
-    auth = request.authorization
-    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+    projects = db.session.query(Project).all()
 
     if request.form:
         cleaned_date = datetime.datetime.strptime(
@@ -131,13 +126,8 @@ def detail(id):
 
 @app.route('/projects/<int:id>/edit', methods=['GET', 'POST'])
 def edit(id):
-    auth = request.authorization
-    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+    if not check_auth():
+        return authenticate()
 
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
@@ -165,13 +155,8 @@ def edit(id):
 
 @app.route('/projects/<int:id>/delete')
 def delete(id):
-    auth = request.authorization
-    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+    if not check_auth():
+        return authenticate()
 
     project = db.one_or_404(db.select(Project).filter_by(id=id))
     db.session.delete(project)
@@ -190,13 +175,8 @@ def about():
 # ------------------------
 @app.route('/backup')
 def backup():
-    auth = request.authorization
-    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+    if not check_auth():
+        return authenticate()
 
     output = StringIO()
     writer = csv.writer(output)
@@ -233,13 +213,8 @@ def backup():
 # ------------------------
 @app.route('/import', methods=['POST'])
 def import_csv():
-    auth = request.authorization
-    if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-        return Response(
-            'Login Required',
-            401,
-            {'WWW-Authenticate': 'Basic realm="Login Required"'}
-        )
+    if not check_auth():
+        return authenticate()
 
     file = request.files['file']
 
