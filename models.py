@@ -17,8 +17,7 @@ if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
     raise RuntimeError("Database environment variables are missing or incorrect")
 
 # 🔹 SQLAlchemy connection string
-app.config['SQLALCHEMY_DATABASE_URI'] = (
-    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
