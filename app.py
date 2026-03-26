@@ -50,7 +50,14 @@ admin = Admin(app, name='My portfolio', template_mode='bootstrap3')
 
 
 class ProjectView(ModelView):
-    ...
+
+    def is_accessible(self):
+        return basic_auth.authenticate()
+
+    def inaccessible_callback(self, name, **kwargs):
+        return abort(401)
+
+admin.add_view(ProjectView(Project, db.session))
    
         
     
