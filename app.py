@@ -46,7 +46,12 @@ app.config['FLASK_ADMIN_SWATCH'] = 'cyborg'
 
 
 
-admin = Admin(app, name='My portfolio', template_mode='bootstrap3')
+admin = Admin(
+    app,
+    name='My portfolio',
+    template_mode='bootstrap3',
+    index_view=MyAdminIndexView()
+)
 
 
 class ProjectView(ModelView):
@@ -56,6 +61,21 @@ class ProjectView(ModelView):
 
     def inaccessible_callback(self, name, **kwargs):
         return abort(401)
+
+
+from flask_admin import AdminIndexView
+from flask import Response
+
+class MyAdminIndexView(AdminIndexView):
+
+    def dispatch_request(self):
+        if not basic_auth.authenticate():
+            return Response(
+                'Login required',
+                401,
+                {'WWW-Authenticate': 'Basic realm="Login Required"'}
+            )
+        return super().dispatch_request()
 
 admin.add_view(ProjectView(Project, db.session))
    
