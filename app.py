@@ -12,6 +12,7 @@ from models import Project, app, db
 # ADMIN
 # ------------------------
 from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 # ------------------------
 # UTILITIES
