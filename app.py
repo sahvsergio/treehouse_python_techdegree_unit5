@@ -1,74 +1,30 @@
-"""Provide several sample math calculations.
+# --- Core Flask & DB ---
+from flask import Flask, abort, flash, redirect, render_template, request, url_for, jsonify, Response
+from models import Project, app, db
 
-This module allows the user to make mathematical calculations.
-
-The module contains the following functions:
-
-- `add(a, b)` - Returns the sum of two numbers.
-- `subtract(a, b)` - Returns the difference of two numbers.
-- `multiply(a, b)` - Returns the product of two numbers.
-- `divide(a, b)` - Returns the quotient of two numbers.
-"""
-# handling the database and models
-
-from flask import Flask
-from flask import abort
-import sqlalchemy
-from sqlalchemy import create_engine, cast, func, or_, select
-from sqlalchemy.orm import scoped_session, sessionmaker
-from flask_admin import AdminIndexView
-
-# flask imports
-from flask import flash, redirect, render_template, request, url_for, flash, jsonify
-from models import Project, Flask, app, db
+# --- Auth ---
 from flask_basicauth import BasicAuth
+
+# --- Flask-Admin ---
+from flask_admin import Admin, AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+
+# --- Utilities ---
 import datetime
 from io import StringIO
 import csv
-from flask import Response
 
-
+# ------------------------
+# BASIC AUTH CONFIG
+# ------------------------
 app.config['BASIC_AUTH_USERNAME'] = 'john'
 app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
 basic_auth = BasicAuth(app)
 
-
-#flask-admin
-from flask_admin import Admin
-
-
-from flask_admin import form
-
-
-from flask_admin.contrib.sqla import ModelView
-
-
-app.config['FLASK_ADMIN_SWATCH'] = 'cyborg'
-
-
-
-admin = Admin(
-    app,
-    name='My portfolio',
-    template_mode='bootstrap3',
-    index_view=MyAdminIndexView()
-)
-
-
-class ProjectView(ModelView):
-
-    def is_accessible(self):
-        return basic_auth.authenticate()
-
-    def inaccessible_callback(self, name, **kwargs):
-        return abort(401)
-
-
-from flask_admin import AdminIndexView
-from flask import Response
-
+# ------------------------
+# PROTECT ADMIN INDEX
+# ------------------------
 class MyAdminIndexView(AdminIndexView):
-
     def dispatch_request(self):
         if not basic_auth.authenticate():
             return Response(
@@ -78,51 +34,47 @@ class MyAdminIndexView(AdminIndexView):
             )
         return super().dispatch_request()
 
+# ------------------------
+# ADMIN SETUP
+# ------------------------
+app.config['FLASK_ADMIN_SWATCH'] = 'cyborg'
+
+admin = Admin(
+    app,
+    name='My portfolio',
+    template_mode='bootstrap3',
+    index_view=MyAdminIndexView()
+)
+
+class ProjectView(ModelView):
+    def is_accessible(self):
+        return basic_auth.authenticate()
+
+    def inaccessible_callback(self, name, **kwargs):
+        return abort(401)
+
 admin.add_view(ProjectView(Project, db.session))
-   
-        
-    
-    
- 
-   
-    
 
-
-
-
-# create routes(visible parts of the site- urls)
-
+# ------------------------
+# ROUTES
+# ------------------------
 
 @app.route('/', methods=['GET', 'POST'])
-# decorator
 def index():
-    '''
-    index
-    creates the entry point/home page for the site
-    '''
-
     projects = db.session.query(Project).all()
-
     return render_template('index.html', projects=projects)
-
 
 
 @app.route('/projects/new', methods=['GET', 'POST'])
 @basic_auth.required
 def create():
-    '''Turns the string into a date object'''
-    # 'title', 'Hello'),
-    # ('date', '2024-12'),
-    # ('desc', 'Helloo'),
-    # ('skills', 'Python'),
-    # ('github', 'https://www.bloghorror.com')])
     projects = db.session.query(Project).all()
+
     if request.form:
-        date_format = '%Y-%m'
         cleaned_date = datetime.datetime.strptime(
-            request.form['date'],
-            date_format
+            request.form['date'], '%Y-%m'
         )
+
         new_project = Project(
             title=request.form['title'],
             date=cleaned_date,
@@ -130,9 +82,10 @@ def create():
             skills_practiced=request.form['skills'],
             url=request.form['github']
         )
+
         db.session.add(new_project)
-        print(db.session.dirty)
         db.session.commit()
+
         return redirect(url_for('index'))
 
     return render_template('new_project.html', projects=projects)
@@ -142,50 +95,46 @@ def create():
 def detail(id):
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
-    skills = project.skills_practiced
 
-    return render_template('detail.html',
-                           project=project,
-                           id=id, skills=skills,
-                           projects=projects)
+    return render_template(
+        'detail.html',
+        project=project,
+        id=id,
+        skills=project.skills_practiced,
+        projects=projects
+    )
 
 
-@app.route('/projects/<id>/edit', methods=['GET', 'POST'])
+@app.route('/projects/<int:id>/edit', methods=['GET', 'POST'])
 @basic_auth.required
 def edit(id):
-
     projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
+
     if request.method == 'POST':
-        if request.form:
-            project.title = request.form['title']
-            date_format = '%Y-%m'
-            date = request.form['date']
-            year, month = date.split('-')
-            print(date)
-            project.date = datetime.datetime.strptime(
-                request.form['date'], '%Y-%m')
-            project.description = request.form['desc']
-            project.skills_practiced = request.form['skills']
-            project.url = request.form['github']
+        project.title = request.form['title']
+        project.date = datetime.datetime.strptime(
+            request.form['date'], '%Y-%m'
+        )
+        project.description = request.form['desc']
+        project.skills_practiced = request.form['skills']
+        project.url = request.form['github']
 
-            db.session.commit()
+        db.session.commit()
+        return redirect(url_for('index'))
 
-            return redirect(url_for('index'))
-    return render_template('edit_project.html',
-                           project=project,
-                           projects=projects,
-                           id=project.id,
-                           date=datetime.datetime.strftime(
-                               project.date.date(),
-                               '%Y-%m')
-                           )
+    return render_template(
+        'edit_project.html',
+        project=project,
+        projects=projects,
+        id=project.id,
+        date=datetime.datetime.strftime(project.date.date(), '%Y-%m')
+    )
 
 
 @app.route('/projects/<int:id>/delete')
 @basic_auth.required
 def delete(id):
-    projects = db.session.query(Project).all()
     project = db.one_or_404(db.select(Project).filter_by(id=id))
     db.session.delete(project)
     db.session.commit()
@@ -195,15 +144,12 @@ def delete(id):
 @app.route('/about')
 def about():
     projects = db.session.query(Project).all()
-
     return render_template('about.html', projects=projects)
 
 
-@app.errorhandler(404)
-def not_found(error):
-    projects = db.session.query(Project).all()
-    return render_template('404.html', projects=projects), 404
-
+# ------------------------
+# BACKUP (CSV DOWNLOAD)
+# ------------------------
 @app.route('/backup')
 @basic_auth.required
 def backup():
@@ -211,12 +157,7 @@ def backup():
     writer = csv.writer(output)
 
     writer.writerow([
-        'id',
-        'title',
-        'date',
-        'description',
-        'skills',
-        'url'
+        'id', 'title', 'date', 'description', 'skills', 'url'
     ])
 
     projects = db.session.query(Project).all()
@@ -241,6 +182,10 @@ def backup():
         }
     )
 
+
+# ------------------------
+# IMPORT CSV
+# ------------------------
 @app.route('/import', methods=['POST'])
 @basic_auth.required
 def import_csv():
@@ -268,12 +213,21 @@ def import_csv():
 
     return redirect(url_for('index'))
 
+
+# ------------------------
+# ERROR HANDLER
+# ------------------------
+@app.errorhandler(404)
+def not_found(error):
+    projects = db.session.query(Project).all()
+    return render_template('404.html', projects=projects), 404
+
+
+# ------------------------
+# RUN APP
+# ------------------------
 if __name__ == '__main__':
-  with app.app_context():
-#        # creating the engine
-        engine = db.engine
+    with app.app_context():
         db.create_all()
-        # making the app run, you just need to run the app.py file on the terminal
-        # local app.run(debug=True , port=8000, host='127.0.0.1')
-     #internet
-  app.run( port=3000,debug=True, host='0.0.0.0')
+
+    app.run(port=3000, debug=True, host='0.0.0.0')
