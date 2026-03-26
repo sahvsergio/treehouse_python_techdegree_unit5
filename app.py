@@ -213,6 +213,14 @@ def import_csv():
 
     return redirect(url_for('index'))
 
+@app.route('/force-auth')
+def force_auth():
+    return Response(
+        'Auth test',
+        401,
+        {'WWW-Authenticate': 'Basic realm="Test"'}
+    )
+
 
 # ------------------------
 # ERROR HANDLER
@@ -221,6 +229,9 @@ def import_csv():
 def not_found(error):
     projects = db.session.query(Project).all()
     return render_template('404.html', projects=projects), 404
+
+
+
 
 
 # ------------------------
