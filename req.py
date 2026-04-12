@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-import tracebback
+import traceback
 
 TREEHOUSE_DATA= os.getenv('TREEHOUSE_DATA')
 try:
