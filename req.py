@@ -14,7 +14,7 @@ except Exception:
     traceback,print_exc()
     
 with open('treehouse.json','w') as treehouse_info:
-    json.dump(data, file, indent=4)
+    json.dump(data, treehouse_info, indent=4)
     
 
 
