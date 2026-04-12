@@ -4,6 +4,7 @@ import os
 import traceback
 
 TREEHOUSE_DATA= os.getenv('TREEHOUSE_DATA')
+print(f"DEBUG:The URL is {TREEHOUSE_DATA}")
 try:
     my_info = requests.get(TREEHOUSE_DATA)
 except Exception:
