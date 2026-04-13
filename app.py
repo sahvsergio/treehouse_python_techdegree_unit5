@@ -22,7 +22,7 @@ from io import StringIO
 import csv
 app.config['FLASK_ADMIN_SWATCH'] = 'simplex'
 admin = Admin(app)
-admin.add_view(ModelView(Project, db.session))
+
 
 
 
