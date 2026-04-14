@@ -20,6 +20,21 @@ from flask_admin.contrib.sqla import ModelView
 import datetime
 from io import StringIO
 import csv
+
+# ------------------------
+# GOOGLE API
+# ------------------------
+from googleapiclient.discovery import build
+
+# ------------------------
+# ENVIRONMENT VARIBLES
+# ------------------------
+
+#API_KEY
+
+#BLOG_ID
+
+
 app.config['FLASK_ADMIN_SWATCH'] = 'simplex'
 admin = Admin(app)
 
