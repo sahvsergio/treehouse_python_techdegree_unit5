@@ -7,6 +7,10 @@ instance/*
 .webassets-cache
 .env
 
+pyproject.toml
+uv.lock
+.python-version
+
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
