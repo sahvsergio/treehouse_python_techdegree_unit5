@@ -7,10 +7,10 @@ import os
 app = Flask(__name__, template_folder='templates')
 
 # 🔹 Environment variables
-DB_USER = os.getenv('DB_USER')
+DB_USER = os.getenv('DB_USER','root')
 DB_PASSWORD = quote_plus(os.getenv('DB_PASSWORD'))  # encode special chars
-DB_HOST = os.getenv('DB_HOST')
-DB_NAME = os.getenv('DB_NAME')
+DB_HOST = os.getenv('DB_HOST','127.0.0.1')
+DB_NAME = os.getenv('DB_NAME','projects_db')
 
 # 🔹 Safety check
 if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
