@@ -6,6 +6,7 @@ instance/*
 !instance/.gitignore
 .webassets-cache
 .env
+requirements-dev.txt
 
 pyproject.toml
 uv.lock
