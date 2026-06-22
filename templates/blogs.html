@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Data Streams</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/styles.css') }}">
+</head>
+<body>
+
+    <header class="header-stream-container">
+        <h1>Project Data Streams</h1>
+        <p>A systematic timeline of live portfolio updates</p>
+    </header>
+
+    <main class="centered-feed-container">
+        {% for post in posts %}
+            <article class="article-card 
+                {% if post.source == 'WordPress' %}
+                    style-wordpress
+                {% elif post.source == 'Blogger - Site sahvsergio' %}
+                    style-sahvsergio
+                {% elif post.source == 'Blogger - unana' %}
+                    style-unana
+                {% elif post.source == 'Blogger - Site gepido' %}
+                    style-gepido
+                {% endif %}">
+                
+                <header class="article-header">
+                    <h2><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
+                    <span class="source-badge">{{ post.source.replace('Blogger - ', '') }}</span>
+                </header>
+                
+                <div class="card-body">
+                    {{ post.description|safe }}
+                </div>
+            </article>
+        {% else %}
+            <p class="empty-msg">No articles or updates loaded at this time.</p>
+        {% endfor %}
+    </main>
+
+</body>
+</html>
