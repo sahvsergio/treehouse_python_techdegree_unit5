@@ -15,6 +15,7 @@ FONT
 *******/
 
 * {
+  box-sizing: border-box; /* 🤠 Added to prevent padding rules from breaking grid layouts */
   font-family: "Roboto", Arial, Helvetica, sans-serif;
   color: var(--primary-text);
 }
@@ -45,7 +46,6 @@ Nav
 
 nav {
   margin-top: 1rem;
-  
 }
 
 .navbar-brand {
@@ -552,12 +552,9 @@ EXCEEDS - About Page
   padding-right: 10px;
 }
 
-
-
 footer {
   margin-top: 30px;
   line-height: 30px;
-
   text-align: center;
 }
 
@@ -565,7 +562,6 @@ footer {
 ADMIN CSS
 *******/
 
-/* From Uiverse.io by zanina-yassine */ 
 .form_container {
   width: fit-content;
   height: fit-content;
@@ -725,9 +721,6 @@ ADMIN CSS
   text-decoration: underline;
 }
 
-
-
-
 /*******
 Media Queries
 *******/
@@ -790,8 +783,6 @@ Media Queries
   }
 
   #skills ul {
-    -webkit-column-count: 2; /* Chrome/Opera, Safari */
-    -moz-column-count: 2; /* Mozilla Firefox */
     column-count: 2;
     margin-left: 15%;
     margin-right: 15%;
@@ -842,8 +833,6 @@ Media Queries
   }
 
   .header .project-skills {
-    -webkit-column-count: 2; /* Chrome/Opera, Safari */
-    -moz-column-count: 2; /* Mozilla Firefox */
     column-count: 2;
     max-width: 500px;
   }
@@ -856,4 +845,127 @@ Media Queries
   #form textarea {
     width: 530px;
   }
+}
+
+/*********************************
+🤠 CENTERED ARTICLE STREAM SYSTEM
+*********************************/
+
+/* Stream specific layout title blocks centered above cards */
+.header-stream-container {
+  max-width: 800px;
+  margin: 5rem auto 1rem auto;
+  text-align: left;
+  padding: 0 15px;
+}
+
+.header-stream-container h1 {
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.header-stream-container p {
+  font-size: 20px;
+  color: var(--secondary-text);
+}
+
+/* Constrains timeline layouts securely to the center spine */
+.centered-feed-container {
+  max-width: 800px; 
+  margin: 0 auto;   
+  padding: 20px 15px 60px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;        
+}
+
+/* Base Editorial Card Parameters */
+.article-card {
+  background-color: var(--white);
+  border: 1px solid rgba(81, 71, 92, 0.15);
+  border-radius: 12px;
+  padding: 35px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Structural Topic Color Indicators */
+.article-card.style-wordpress { border-left: 8px solid #21759b; }
+.article-card.style-sahvsergio { border-left: 8px solid var(--accent); }
+.article-card.style-unana { border-left: 8px solid var(--secondary); }
+.article-card.style-gepido { border-left: 8px solid var(--primary); }
+
+/* Card Top Row Grid Layouts */
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(81, 71, 92, 0.1);
+  padding-bottom: 15px;
+}
+
+.article-card h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.35;
+}
+
+.article-card h2 a {
+  color: var(--primary-text);
+  text-decoration: none;
+}
+
+.article-card h2 a:hover {
+  color: var(--accent);
+}
+
+/* Metadata Stream Identity Tags */
+.source-badge {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+/* Article Body Block Formatting */
+.card-body {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--primary-text);
+}
+
+/* Targets raw nested typography tags directly from API strings */
+.card-body p, 
+.card-body span, 
+.card-body div {
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+  color: var(--primary-text) !important;
+  margin-bottom: 12px;
+}
+
+.card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.empty-msg {
+  color: var(--secondary-text);
+  text-align: center;
+  font-style: italic;
+  font-size: 22px;
+  padding: 60px 0;
 }
