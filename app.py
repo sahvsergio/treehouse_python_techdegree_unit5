@@ -1,9 +1,17 @@
 # ------------------------
 # CORE IMPORTS
 # ------------------------
+import html
 from flask import (
     abort, redirect, render_template,
     request, url_for, Response
+)
+from req import (
+    get_treehouse_data,
+    extract_wordpress_blog,
+    extract_blogger_sahvsergio,
+    extract_blogger_unana,
+    extract_blogger_gepido
 )
 
 from models import Project, app, db
@@ -21,18 +29,11 @@ import datetime
 from io import StringIO
 import csv
 
-# ------------------------
-# GOOGLE API
-# ------------------------
 
 
-# ------------------------
-# ENVIRONMENT VARIBLES
-# ------------------------
 
-#API_KEY
 
-#BLOG_ID
+
 
 
 app.config['FLASK_ADMIN_SWATCH'] = 'simplex'
@@ -148,6 +149,35 @@ def init_db():
         db.create_all()
     return "DB initialized"
 
+@app.route('/blogs')
+def show_blogs():
+    print("🚀 Flask route triggered: Fetching live streams into memory...")
+    
+    wp_posts = extract_wordpress_blog()
+    b1_posts = extract_blogger_sahvsergio()
+    b2_posts = extract_blogger_unana()
+    b3_posts = extract_blogger_gepido()
+    
+    all_current_posts = wp_posts + b1_posts + b2_posts + b3_posts
+    treehouse_profile = get_treehouse_data()
+    
+    # Clean up every single text entity (like &nbsp;) inside your post dictionaries
+    cleaned_posts = []
+    for post in all_current_posts:
+        cleaned_post = {
+            'title': html.unescape(post.get('title', '')),
+            'url': post.get('url', ''),
+            'source': post.get('source', ''),
+            'description': html.unescape(post.get('description', ''))
+        }
+        cleaned_posts.append(cleaned_post)
+    
+    return render_template(
+        'blogs.html', 
+        posts=cleaned_posts,  # Pass the cleaned array
+        profile=treehouse_profile
+
+    )
 # ------------------------
 # ERROR HANDLER
 # ------------------------
