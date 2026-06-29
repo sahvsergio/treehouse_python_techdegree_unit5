@@ -6,6 +6,7 @@ instance/*
 !instance/.gitignore
 .webassets-cache
 .env
+main.py
 requirements-dev.txt
 
 pyproject.toml
