@@ -251,7 +251,7 @@ cython_debug/
 # pytype static type analyzer
 
 # Cython debug symbols
- sergioherrera_projects.sql
+ /sergioherrera_projects.sql
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
