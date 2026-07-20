@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text  # 👈 Added text import here
 from urllib.parse import quote_plus
 import datetime
 import os
@@ -7,13 +8,15 @@ import os
 app = Flask(__name__, template_folder='templates')
 
 # 🔹 Environment variables
-DB_USER = os.getenv('DB_USER','root')
-DB_PASSWORD = quote_plus(os.getenv('DB_PASSWORD'))  # encode special chars
-DB_HOST = os.getenv('DB_HOST','127.0.0.1')
-DB_NAME = os.getenv('DB_NAME','projects_db')
+DB_USER = os.getenv('DB_USER', 'root')
+# Handle potential None password before quoting
+raw_password = os.getenv('DB_PASSWORD', '')
+DB_PASSWORD = quote_plus(raw_password)  # encode special chars
+DB_HOST = os.getenv('DB_HOST', '127.0.0.1')
+DB_NAME = os.getenv('DB_NAME', 'projects_db')
 
 # 🔹 Safety check
-if not all([DB_USER, DB_PASSWORD, DB_HOST, DB_NAME]):
+if not all([DB_USER, DB_HOST, DB_NAME]):
     raise RuntimeError("Database environment variables are missing or incorrect")
 
 # 🔹 SQLAlchemy connection string
@@ -50,12 +53,14 @@ with app.app_context():
     db.create_all()
     print("✅ Tables created (if they didn't exist)")
 
-# 🔹 Test connection function
+# 🔹 Test connection function (SQLAlchemy 2.0+ Compliant)
 def test_connection():
     try:
         with app.app_context():
-            result = db.engine.execute("SELECT 1")
-            print("✅ MySQL connection successful:", result.fetchone())
+            # ✅ Open explicit connection context & wrap raw SQL in text()
+            with db.engine.connect() as connection:
+                result = connection.execute(text("SELECT 1"))
+                print("✅ MySQL connection successful:", result.fetchone())
     except Exception as e:
         print("❌ MySQL connection failed:", e)
 
