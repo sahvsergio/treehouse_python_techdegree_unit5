@@ -1,21 +1,42 @@
 {% extends 'layout.html' %}
       
-        {% block content %}   
-       <section id="about">
+{% block content %}   
+<section id="zelda-cave-screen">
+  <div class="cave-frame">
+    
+    <!-- Cave Header & Animated Fires -->
+    <div class="cave-header">
+      <span class="cave-fire">🔥</span>
+      <h1 class="cave-title">ERROR 404</h1>
+      <span class="cave-fire">🔥</span>
+    </div>
 
-   
-        
-            
-        <img src="https://media.giphy.com/media/l0HlOBZcl7sbV6LnO/giphy.gif" alt=""> 
-         
-     
-           
-            <h2>Hmmm ... it seems this page can't be  read!</h2>
-            <p>{{msg}}</p>
-          
-<a href="{{url_for('index')}}"> To return to the home page, click here
+    <!-- Pure CSS 8-Bit Pixel Old Man Sprite / Loader -->
+    <div class="old-man-container">
+      <div class="pixel-old-man" role="img" aria-label="8-bit Old Man Pixel Art"></div>
+    </div>
 
-</a>
+    <!-- Speech Dialogue Box -->
+    <p class="zelda-cave-speech">
+      "IT'S DANGEROUS TO GO ALONE! TAKE THIS."
+    </p>
+
+    <p class="error-detail-text">
+      {% if msg %}
+        [{{ msg }}]
+      {% else %}
+        [ THIS PAGE WAS DESTROYED BY GANON ]
+      {% endif %}
+    </p>
+
+    <!-- Interactive Treasure Chest Link -->
+    <div class="cave-chest-wrapper">
+      <a href="{{ url_for('index') }}" class="cave-treasure-chest">
+        <div class="chest-lid">🧰<br><span>[ OPEN CHEST ]</span></div>
+        <div class="chest-contents">🗡️ TAKE SWORD<br>(RETURN HOME)</div>
+      </a>
+    </div>
+
+  </div>
 </section>
-        {% endblock content %}
-       
+{% endblock content %}

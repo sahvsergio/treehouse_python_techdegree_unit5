@@ -1,37 +1,40 @@
 {% extends 'layout.html' %} 
 
-
 {% block content %}
-<section class="header">
+<section class="header project-detail-header">
   <h1>{{project.title}}</h1>
-  <p>{{project.date}}1</p>
-  <a href="{{project.url}}" class="github-btn">
+  <p class="project-date">QUEST DATE: {{project.date}}</p>
+  
+  <a href="{{project.url}}" class="github-btn" target="_blank">
     <i class="fab fa-github"></i>
-    View on GitHub
+    VIEW ON GITHUB
   </a>
-  <ul class="project-skills">
-    <div> 
 
-       {% for skill in project.skills_practiced.split(',')  %}
-        <li>{{skill}}</li>
+  <div class="project-skills-wrapper">
+    <h3>SKILLS PRACTICED</h3>
+    <ul class="project-skills">
+       {% for skill in project.skills_practiced.split(',') %}
+        <li>{{skill.strip()}}</li>
        {% endfor %}
-    </div>
-  </ul>
+    </ul>
+  </div>
 </section>
+
 <section id="project-desc">
   <div id="triangle5"></div>
-  <h2>Description</h2>
+  <h2>DESCRIPTION</h2>
   <p>{{project.description}}</p>
   <div id="triangle6"></div>
 </section>
+
 <section id="edit-delete">
-  <a href="{{url_for('edit',id=project.id )}}">
+  <a href="{{url_for('edit', id=project.id)}}" class="btn-edit">
     <i class="fas fa-edit"></i>
-    Edit
+    EDIT QUEST
   </a>
-  <a href="{{url_for('delete',id=project.id )}}">
+  <a href="{{url_for('delete', id=project.id)}}" class="btn-delete">
     <i class="far fa-trash-alt"></i>
-    Delete
+    ABANDON QUEST
   </a>
 </section>
-{% endblock content%}
+{% endblock content %}
