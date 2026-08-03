@@ -413,3 +413,256 @@ section:has(#skills),
   margin-right: 10px !important;
   display: inline-block !important;
 }
+//*****************************************************
+📜 BLOG / PROJECT DATA STREAMS TERMINAL
+*****************************************************/
+.header-stream-container {
+  text-align: center !important;
+  max-width: 900px !important;
+  margin: 1rem auto 2.5rem auto !important;
+  padding: 15px !important;
+  border-bottom: 4px double var(--accent) !important;
+}
+
+.header-stream-container h1 {
+  font-size: 18px !important;
+  color: var(--accent) !important;
+  margin-bottom: 10px !important;
+}
+
+.header-stream-container p {
+  font-size: 10px !important;
+  color: #888888 !important;
+}
+
+.centered-feed-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 25px !important;
+  max-width: 850px !important;
+  margin: 0 auto 4rem auto !important;
+  padding: 0 10px !important;
+}
+
+.article-card {
+  background-color: var(--dungeon-floor) !important;
+  border: 4px solid var(--dungeon-wall) !important;
+  padding: 20px !important;
+  position: relative !important;
+  text-align: left !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.article-card:hover {
+  border-color: var(--accent) !important;
+}
+
+.article-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-bottom: 12px !important;
+  border-bottom: 2px dashed var(--dungeon-wall) !important;
+  padding-bottom: 10px !important;
+}
+
+.article-header h2 {
+  margin: 0 !important;
+  font-size: 12px !important;
+  text-align: left !important;
+}
+
+.article-header h2 a {
+  color: var(--accent) !important;
+  text-decoration: none !important;
+}
+
+.article-header h2 a:hover {
+  text-decoration: underline !important;
+}
+
+.article-header h2 a::before {
+  content: "📜 " !important;
+}
+
+.source-badge {
+  font-size: 8px !important;
+  padding: 4px 8px !important;
+  background-color: #000000 !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--primary-text) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.article-card.style-wordpress { border-left: 8px solid var(--rupee-blue) !important; }
+.article-card.style-sahvsergio { border-left: 8px solid var(--accent) !important; }
+.article-card.style-unana { border-left: 8px solid var(--heart-red) !important; }
+.article-card.style-gepido { border-left: 8px solid #00aa00 !important; }
+
+.card-body {
+  font-size: 10px !important;
+  color: var(--primary-text) !important;
+  line-height: 1.8 !important;
+  word-break: break-word !important;
+}
+
+.empty-msg {
+  text-align: center !important;
+  color: var(--accent) !important;
+  font-size: 11px !important;
+  padding: 40px !important;
+  border: 4px dashed var(--dungeon-wall) !important;
+}
+
+
+
+/*****************************************************
+🔥 1986 ZELDA CAVE & PURE CSS SPRITE LOADER (404 ERROR)
+*****************************************************/
+#zelda-cave-screen {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 1.5rem auto 4rem auto !important;
+  max-width: 750px !important;
+  padding: 10px !important;
+}
+
+.cave-frame {
+  background-color: var(--bg-main) !important;
+  border: 6px double var(--accent) !important;
+  box-shadow: inset 0 0 0 4px var(--dungeon-wall) !important;
+  padding: 30px 20px !important;
+  width: 100% !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.cave-header {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 15px !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.cave-title {
+  font-size: 22px !important;
+  color: var(--heart-red) !important;
+  letter-spacing: 3px !important;
+}
+
+.cave-fire {
+  font-size: 20px !important;
+  animation: flicker 0.8s infinite alternate !important;
+}
+
+.old-man-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 1.5rem auto 2.5rem auto !important;
+  height: 60px !important;
+}
+
+.pixel-old-man {
+  width: 6px !important;
+  height: 6px !important;
+  background-color: transparent !important;
+  margin-left: -30px !important;
+  margin-top: -30px !important;
+  box-shadow: 
+    18px 0px #e43b43, 24px 0px #e43b43, 30px 0px #e43b43,
+    12px 6px #e43b43, 18px 6px #e43b43, 24px 6px #e43b43, 30px 6px #e43b43, 36px 6px #e43b43,
+    12px 12px #e43b43, 18px 12px #ffc880, 24px 12px #000000, 30px 12px #ffc880, 36px 12px #e43b43,
+    12px 18px #e43b43, 18px 18px #ffffff, 24px 18px #ffffff, 30px 18px #ffffff, 36px 18px #e43b43,
+    18px 24px #ffffff, 24px 24px #ffffff, 30px 24px #ffffff,
+    12px 30px #e43b43, 18px 30px #e43b43, 24px 30px #e69c24, 30px 30px #e43b43, 36px 30px #e43b43,
+    6px 36px #e43b43, 12px 36px #e43b43, 18px 36px #e43b43, 24px 36px #e69c24, 30px 36px #e43b43, 36px 36px #e43b43, 42px 36px #e43b43,
+    6px 42px #e43b43, 12px 42px #e43b43, 18px 42px #e43b43, 24px 42px #e43b43, 30px 42px #e43b43, 36px 42px #e43b43, 42px 42px #e43b43,
+    12px 48px #a0522d, 18px 48px #a0522d, 30px 48px #a0522d, 36px 48px #a0522d !important;
+
+  animation: zelda-loader-pulse 1s infinite steps(2, start) !important;
+}
+
+@keyframes zelda-loader-pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.zelda-cave-speech {
+  font-size: 11px !important;
+  color: var(--accent) !important;
+  line-height: 2 !important;
+  margin-bottom: 0.5rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.error-detail-text {
+  font-size: 8px !important;
+  color: #888888 !important;
+  margin-bottom: 2rem !important;
+}
+
+.cave-chest-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  margin-top: 1rem !important;
+}
+
+.cave-treasure-chest {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 260px !important;
+  height: 100px !important;
+  background-color: var(--dungeon-floor) !important;
+  border: 4px solid var(--accent) !important;
+  position: relative !important;
+  text-decoration: none !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+}
+
+.chest-lid {
+  position: absolute !important;
+  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+  background-color: var(--chest-wood) !important;
+  border: 4px double var(--accent) !important;
+  color: var(--accent) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 11px !important;
+  z-index: 2 !important;
+  transition: transform 0.25s steps(3, end) !important;
+}
+
+.chest-lid span {
+  font-size: 8px !important;
+  color: #ffffff !important;
+  margin-top: 5px !important;
+}
+
+.chest-contents {
+  color: var(--accent) !important;
+  font-size: 10px !important;
+  text-align: center !important;
+  line-height: 1.6 !important;
+}
+
+.cave-treasure-chest:hover .chest-lid,
+.cave-treasure-chest:focus .chest-lid {
+  transform: translateY(-100%) !important;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.7; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
