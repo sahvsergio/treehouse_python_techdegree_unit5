@@ -1,668 +1,1308 @@
-/*******
-🎮 AUTHENTIC 1986 NES ZELDA GAME ENGINE (LAYOUT.HTML SPECIFIC FIX)
-*******/
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+```css
+/* =========================================================
+   SERGIO HERRERA — PORTFOLIO
+   Mobile-first professional design
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. DESIGN TOKENS
+   --------------------------------------------------------- */
 
 :root {
-  --bg-main: #000000;          
-  --border-color: #ffffff;     
-  --primary-text: #ffffff;     
-  --secondary-text: #ffffff;   
-  --accent: #e69c24;           /* Triforce Gold */
-  --heart-red: #e43b43;        
-  --rupee-blue: #0050ff;       
-  --dungeon-wall: #414141;     
-  --dungeon-floor: #111111;    
-  --chest-wood: #a0522d;       /* Treasure Chest Brown */
-  --text-font: 'Press Start 2P', monospace, sans-serif;
+    /* Brand colors */
+    --color-primary: #14243A;
+    --color-secondary: #334155;
+    --color-accent: #2563EB;
+    --color-accent-hover: #1D4ED8;
+
+    /* Backgrounds */
+    --color-bg: #F7F6F2;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-muted: #E5E7EB;
+
+    /* Text */
+    --color-text: #14243A;
+    --color-text-secondary: #334155;
+    --color-text-muted: #64748B;
+    --color-text-inverse: #FFFFFF;
+
+    /* Borders */
+    --color-border: #E5E7EB;
+    --color-border-strong: #CBD5E1;
+
+    /* Status */
+    --color-success: #16A34A;
+    --color-warning: #D97706;
+    --color-danger: #DC2626;
+    --color-info: #0284C7;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(20, 36, 58, 0.08);
+    --shadow-md: 0 4px 12px rgba(20, 36, 58, 0.10);
+    --shadow-lg: 0 10px 30px rgba(20, 36, 58, 0.12);
+
+    /* Typography */
+    --font-main: 'Inter', Arial, sans-serif;
+
+    /* Layout */
+    --container-width: 1120px;
+    --section-spacing: 4rem;
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
 }
 
-/*******
-CORE RESET & OVERRIDES
-*******/
-* {
-  box-sizing: border-box !important;
-  font-family: var(--text-font) !important;
-  image-rendering: pixelated !important;
+
+/* ---------------------------------------------------------
+   2. GLOBAL RESET & BASE STYLES
+   --------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
 }
 
 body {
-  background-color: var(--bg-main) !important;
-  color: var(--primary-text) !important;
-  padding: 15px !important;
-  margin: 0 !important;
-  overflow-x: hidden !important;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
-p, li, a, span, label, input, textarea {
-  font-size: 11px !important;
-  color: var(--primary-text) !important;
-  line-height: 1.8 !important;
-  text-transform: uppercase !important;
+body,
+button,
+input,
+textarea,
+select {
+    font-family: var(--font-main);
 }
 
-h1, h2, h3 {
-  color: var(--accent) !important;
-  text-transform: uppercase !important;
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    color: var(--color-primary);
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    letter-spacing: -0.045em;
 }
 
 h2 {
-  font-size: 14px !important;
-  margin-bottom: 2rem !important;
-  text-align: center !important;
-}
-/*****************************************************
-🧭 NAVBAR & CLICKABLE ACTIVE LINK STATES
-*****************************************************/
-.navigation, nav.navbar {
-  background: var(--bg-main) !important;
-  border: 4px solid var(--border-color) !important;
-  margin-bottom: 2.5rem !important;
-  padding: 0.5rem 1rem !important;
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    letter-spacing: -0.03em;
 }
 
-.navbar-brand {
-  color: var(--accent) !important;
-  font-size: 12px !important;
-  text-decoration: none !important;
+h3 {
+    font-size: 1.2rem;
 }
 
-.navigation .nav-link,
-nav.navbar .nav-link {
-  color: var(--primary-text) !important;
-  font-size: 10px !important;
-  text-decoration: none !important;
-  transition: color 0.1s ease !important;
+ul {
+    padding-left: 1.25rem;
 }
 
-.navigation .nav-link:hover,
-.navigation .nav-link:focus,
-.navigation .nav-link:active,
-.navigation .nav-link.active,
-.dropdown-item:hover,
-.dropdown-item:focus,
-.dropdown-item:active {
-  color: var(--accent) !important;
-  background-color: transparent !important;
-  outline: none !important;
+:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 4px;
 }
 
-.navigation .nav-link:hover::before,
-.navigation .nav-link:focus::before,
-.navigation .nav-link.active::before {
-  content: "▶ " !important;
-  color: var(--heart-red) !important;
-  font-size: 10px !important;
+
+/* ---------------------------------------------------------
+   3. SHARED LAYOUT
+   --------------------------------------------------------- */
+
+.container {
+    width: min(100% - 2rem, var(--container-width));
+    margin-inline: auto;
 }
 
-button.toggle, .toggle {
-  display: none !important;
+section {
+    scroll-margin-top: 5rem;
 }
 
-@media (max-width: 991px) {
-  button.toggle, .toggle {
-    display: block !important;
-    background: transparent !important;
-    border: 2px solid var(--border-color) !important;
-    color: var(--accent) !important;
-    padding: 4px 8px !important;
-  }
+
+/* ---------------------------------------------------------
+   4. HEADER & NAVIGATION
+   --------------------------------------------------------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--color-bg-surface);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
 }
 
-.dropdown-menu {
-  background-color: var(--bg-main) !important;
-  border: 4px solid var(--border-color) !important;
-  border-radius: 0 !important;
+.site-header .navbar {
+    min-height: 68px;
+    padding: 0.75rem 0;
 }
 
-.dropdown-item {
-  color: var(--primary-text) !important;
-  font-size: 9px !important;
-}
-/*****************************************************
-⚔️ HERO SECTION PORTRAIT SHRINK (HAMMER FIX)
-*****************************************************/
-/* Hard-locks ANY image in content blocks to a crisp 70px square */
-section img, 
-div img, 
-.hero-section img, 
-.profile img, 
-.avatar img,
-[class*="hero"] img {
-  width: 70px !important;
-  height: 70px !important;
-  min-width: 70px !important;
-  max-width: 70px !important;
-  min-height: 70px !important;
-  max-height: 70px !important;
-  object-fit: cover !important;
-  border: 4px solid var(--border-color) !important;
-  background-color: #111 !important;
-  border-radius: 0px !important;
-  display: block !important;
-  float: left !important;
-  margin: 0 15px 15px 0 !important;
+.site-header .navbar-brand {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
 }
 
-/*****************************************************
-🧩 PROJECTS: HORIZONTAL SLIDER & LOOT CHESTS
-*****************************************************/
-/* Container for the project section */
-#projects, 
-.projects-container, 
-section:nth-of-type(4) {
-  width: 100% !important;
-  max-width: 900px !important;
-  margin: 0 auto 3rem auto !important;
-  padding: 20px 0 !important;
-  border-top: 4px dashed var(--border-color) !important;
+.site-header .navbar-brand:hover {
+    color: var(--color-accent);
 }
 
-/* Force inner bootstrap rows/grids into a horizontal sliding belt */
-#projects .row, 
-.projects-grid, 
-[class*="project-list"], 
-#projects > div {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  gap: 20px !important;
-  padding: 15px 5px 25px 5px !important;
-  scroll-snap-type: x mandatory !important;
-  -webkit-overflow-scrolling: touch !important;
+.site-header .navbar-toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    box-shadow: none;
 }
 
-/* Individual Project Card -> Turned into a Chest */
-#projects .col,
-#projects .a-project, 
-[class*="project-card"], 
-.card.project,
-#projects .card {
-  flex: 0 0 260px !important;
-  min-width: 260px !important;
-  max-width: 260px !important;
-  height: 230px !important;
-  scroll-snap-align: start !important;
-  background: var(--dungeon-floor) !important;
-  border: 6px solid var(--dungeon-wall) !important;
-  position: relative !important;
-  padding: 15px !important;
-  overflow: hidden !important;
-  cursor: pointer !important;
+.site-header .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
-/* 📦 Visual Chest Overlay (Lid) */
-#projects .col::after,
-#projects .a-project::after, 
-[class*="project-card"]::after, 
-.card.project::after,
-#projects .card::after {
-  content: "🧰\A\A[ OPEN CHEST ]" !important;
-  white-space: pre-wrap !important;
-  font-size: 12px !important;
-  line-height: 1.6 !important;
-  color: var(--accent) !important;
-  text-align: center !important;
-  position: absolute !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  background-color: var(--chest-wood) !important;
-  border: 8px double var(--accent) !important;
-  box-shadow: inset 0 0 0 4px #000 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  z-index: 10 !important;
-  transition: transform 0.25s steps(3, end) !important;
+.site-header .navbar-collapse {
+    padding-top: 0.75rem;
 }
 
-/* Open chest lid on hover or focus click */
-#projects .col:hover::after, #projects .col:focus-within::after,
-#projects .a-project:hover::after, #projects .a-project:focus-within::after,
-[class*="project-card"]:hover::after, [class*="project-card"]:focus-within::after,
-#projects .card:hover::after, #projects .card:focus-within::after {
-  transform: translateY(-100%) !important;
+.site-header .navbar-nav {
+    gap: 0.25rem;
 }
 
-/*****************************************************
-📜 FOOTER & GIANT SVG LOGO SHRINK
-*****************************************************/
-.footer {
-  background: var(--bg-main) !important;
-  border-top: 4px solid var(--border-color) !important;
-  padding: 2rem 1rem !important;
-  text-align: center !important;
-  margin-top: 4rem !important;
+.site-header .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.65rem 0.85rem !important;
+    border-radius: var(--radius-sm);
+    color: var(--color-secondary);
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
-.footer .socials {
-  display: flex !important;
-  justify-content: center !important;
-  gap: 2rem !important;
-  margin-bottom: 1.5rem !important;
+.site-header .nav-link:hover,
+.site-header .nav-link:focus {
+    background-color: var(--color-bg);
+    color: var(--color-accent);
 }
 
-.footer a {
-  text-decoration: none !important;
-  color: var(--accent) !important;
+.site-header .dropdown-menu {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
 }
 
-/* 🌲 Controls the giant inline Treehouse SVG logo in layout.html */
-.treehouse svg {
-  width: 20px !important;
-  height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-  fill: #ffffff !important;
+.site-header .dropdown-item {
+    min-height: 42px;
+    padding: 0.65rem 0.85rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-secondary);
+    font-size: 0.9rem;
 }
 
-/*****************************************************
-🧭 RETRO SCROLLBAR
-*****************************************************/
-::-webkit-scrollbar {
-  height: 10px !important;
-  width: 10px !important;
-}
-::-webkit-scrollbar-track {
-  background: #000 !important;
-  border: 2px solid var(--dungeon-wall) !important;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent) !important;
+.site-header .dropdown-item:hover,
+.site-header .dropdown-item:focus {
+    background-color: var(--color-bg);
+    color: var(--color-accent);
 }
 
-/*****************************************************
-🧹 BROKEN UNICODE CLEANUP, FOOTER & SCROLLBARS
-*****************************************************/
-i, 
-.fa, 
-.fas, 
-.fab, 
-.far, 
-[class*="fa-"] {
-  display: none !important;
+
+/* ---------------------------------------------------------
+   5. BUTTONS
+   --------------------------------------------------------- */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 46px;
+    padding: 0.75rem 1.2rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
 }
 
-i::before, 
-.fa::before, 
-.fas::before, 
-.fab::before {
-  font-family: var(--text-font) !important;
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.footer a::before,
-#contact a::before {
-  content: "▶ " !important;
-  color: var(--accent) !important;
-  font-size: 10px !important;
+.btn-primary {
+    border: 1px solid var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
 }
 
-a[href^="mailto"] {
-  color: var(--accent) !important;
-  text-decoration: underline !important;
+.btn-primary:hover,
+.btn-primary:focus {
+    border-color: var(--color-accent-hover);
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-inverse);
 }
 
-.footer {
-  background: var(--bg-main) !important;
-  border-top: 4px solid var(--border-color) !important;
-  padding: 2rem 1rem !important;
-  text-align: center !important;
-  margin-top: 4rem !important;
+.btn-outline {
+    border: 1px solid var(--color-border-strong);
+    background-color: transparent;
+    color: var(--color-primary);
 }
 
-.footer .socials {
-  display: flex !important;
-  justify-content: center !important;
-  gap: 2rem !important;
-  margin-bottom: 1.5rem !important;
+.btn-outline:hover,
+.btn-outline:focus {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
 }
 
-.footer a {
-  text-decoration: none !important;
-  color: var(--accent) !important;
+
+/* ---------------------------------------------------------
+   6. HERO SECTION
+   --------------------------------------------------------- */
+
+.hero {
+    padding: 3.5rem 0;
+    background-color: var(--color-bg-surface);
 }
 
-.treehouse svg {
-  width: 20px !important;
-  height: 20px !important;
-  max-width: 20px !important;
-  max-height: 20px !important;
-  vertical-align: middle !important;
-  display: inline-block !important;
-  fill: #ffffff !important;
+.hero-container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 2.5rem;
 }
 
-::-webkit-scrollbar {
-  height: 12px !important;
-  width: 12px !important;
-}
-::-webkit-scrollbar-track {
-  background: #000 !important;
-  border: 2px solid var(--dungeon-wall) !important;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--accent) !important;
-  border: 2px solid #000 !important;
+.hero-content {
+    width: 100%;
+    text-align: center;
 }
 
-*****************************************************
-🛡️ SKILLS SECTION: ZELDA INVENTORY GRID
-*****************************************************/
-#skills, 
-section:has(#skills),
-[id*="skills"] {
-  width: 100% !important;
-  max-width: 900px !important;
-  margin: 3rem auto !important;
-  padding: 20px !important;
+.hero-eyebrow,
+.section-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.9rem;
+    color: var(--color-accent);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
 }
 
-#skills h2, 
-.skills-title {
-  text-align: center !important;
-  color: var(--accent) !important;
-  font-size: 16px !important;
-  margin-bottom: 2rem !important;
-  letter-spacing: 2px !important;
+.hero-content h1 {
+    max-width: 750px;
+    margin: 0 auto 1.25rem;
 }
 
-#skills ul, 
-#skills ol,
-.skills-list,
-#skills .row {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
-  gap: 15px !important;
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 auto !important;
+.hero-description {
+    max-width: 600px;
+    margin: 0 auto 1.75rem;
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
 }
 
-#skills li,
-.skills-list li,
-#skills .col {
-  background-color: var(--dungeon-floor) !important;
-  border: 4px solid var(--dungeon-wall) !important;
-  padding: 12px 15px !important;
-  display: flex !important;
-  align-items: center !important;
-  font-size: 10px !important;
-  color: var(--primary-text) !important;
-  text-transform: uppercase !important;
-  transition: all 0.15s ease !important;
-  position: relative !important;
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
 }
 
-#skills li:hover,
-.skills-list li:hover,
-#skills .col:hover {
-  border-color: var(--accent) !important;
-  background-color: #1a1a1a !important;
-  transform: translateY(-2px) !important;
+.hero-image {
+    width: 190px;
+    height: 190px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 5px solid var(--color-bg-surface);
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
 }
 
-#skills li::before,
-.skills-list li::before {
-  content: "▶ " !important;
-  color: var(--accent) !important;
-  font-size: 10px !important;
-  margin-right: 10px !important;
-  display: inline-block !important;
-}
-//*****************************************************
-📜 BLOG / PROJECT DATA STREAMS TERMINAL
-*****************************************************/
-.header-stream-container {
-  text-align: center !important;
-  max-width: 900px !important;
-  margin: 1rem auto 2.5rem auto !important;
-  padding: 15px !important;
-  border-bottom: 4px double var(--accent) !important;
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
-.header-stream-container h1 {
-  font-size: 18px !important;
-  color: var(--accent) !important;
-  margin-bottom: 10px !important;
+
+/* ---------------------------------------------------------
+   7. SECTION HEADINGS
+   --------------------------------------------------------- */
+
+.section-heading {
+    max-width: 700px;
+    margin-bottom: 2rem;
 }
 
-.header-stream-container p {
-  font-size: 10px !important;
-  color: #888888 !important;
+.section-heading h2 {
+    margin-bottom: 0.85rem;
 }
 
-.centered-feed-container {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 25px !important;
-  max-width: 850px !important;
-  margin: 0 auto 4rem auto !important;
-  padding: 0 10px !important;
+.section-heading > p {
+    color: var(--color-text-muted);
+}
+
+
+/* ---------------------------------------------------------
+   8. ABOUT SECTION
+   --------------------------------------------------------- */
+
+.about-section {
+    padding: var(--section-spacing) 0;
+    background-color: var(--color-bg);
+}
+
+.about-content {
+    max-width: 800px;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ---------------------------------------------------------
+   9. SKILLS SECTION
+   --------------------------------------------------------- */
+
+.skills-section {
+    padding: var(--section-spacing) 0;
+    background-color: var(--color-bg-surface);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.skill-category {
+    padding: 1.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.skill-category-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.skill-category-heading i {
+    color: var(--color-accent);
+    font-size: 1.25rem;
+}
+
+.skill-category-heading h3 {
+    margin-bottom: 0;
+    font-size: 1.05rem;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.skills-list li {
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background-color: var(--color-bg);
+    color: var(--color-text-secondary);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+
+/* ---------------------------------------------------------
+   10. PROJECTS SECTION
+   --------------------------------------------------------- */
+
+.projects-section {
+    padding: var(--section-spacing) 0;
+    background-color: var(--color-bg);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+}
+
+.project-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+.project-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.project-card h3 {
+    margin-bottom: 0.9rem;
+    font-size: 1.2rem;
+}
+
+.project-description {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+.project-technologies {
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.project-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: var(--color-primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.project-technologies p {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.project-actions {
+    margin-top: 1.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.project-link:hover {
+    color: var(--color-accent-hover);
+}
+
+.projects-empty {
+    color: var(--color-text-muted);
+}
+
+
+/* ---------------------------------------------------------
+   11. CONTACT SECTION
+   --------------------------------------------------------- */
+
+.contact-section {
+    padding: var(--section-spacing) 0;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+
+.contact-content {
+    max-width: 700px;
+    text-align: center;
+    margin-inline: auto;
+}
+
+.contact-content .section-eyebrow {
+    color: #93C5FD;
+}
+
+.contact-content h2 {
+    color: var(--color-text-inverse);
+}
+
+.contact-content p {
+    margin-bottom: 1.75rem;
+    color: #CBD5E1;
+    font-size: 1rem;
+}
+
+.contact-button {
+    margin-inline: auto;
+}
+
+
+/* ---------------------------------------------------------
+   12. FOOTER
+   --------------------------------------------------------- */
+
+.site-footer {
+    padding: 2rem 0 1.25rem;
+    background-color: #0D1929;
+    color: var(--color-text-inverse);
+}
+
+.socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.25rem;
+    padding-bottom: 1.5rem;
+}
+
+.socials a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    color: #CBD5E1;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.socials a i {
+    font-size: 1.1rem;
+}
+
+.socials a:hover {
+    color: #FFFFFF;
+}
+
+.footer-bottom {
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.footer-bottom p {
+    margin-bottom: 0;
+    color: #94A3B8;
+    font-size: 0.8rem;
+}
+
+
+/* ---------------------------------------------------------
+   13. TABLET — 576px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 576px) {
+
+    :root {
+        --section-spacing: 4.5rem;
+    }
+
+    .container {
+        width: min(100% - 3rem, var(--container-width));
+    }
+
+    .hero {
+        padding: 4.5rem 0;
+    }
+
+    .hero-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .hero-image {
+        width: 220px;
+        height: 220px;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   14. TABLET / SMALL DESKTOP — 768px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 768px) {
+
+    .hero-container {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        flex: 1;
+        text-align: left;
+    }
+
+    .hero-content h1,
+    .hero-description {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .section-heading {
+        margin-bottom: 2.5rem;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   15. DESKTOP — 992px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 992px) {
+
+    :root {
+        --section-spacing: 5rem;
+    }
+
+    .site-header .navbar-collapse {
+        padding-top: 0;
+    }
+
+    .site-header .navbar-nav {
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .hero {
+        padding: 6rem 0;
+    }
+
+    .hero-image {
+        width: 290px;
+        height: 290px;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   16. LARGE DESKTOP — 1200px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 1200px) {
+
+    .hero-container {
+        gap: 5rem;
+    }
+
+    .hero-image {
+        width: 320px;
+        height: 320px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   17. ACCESSIBILITY — REDUCED MOTION
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}
+
+/* =========================================================
+   PROJECT DETAIL PAGE
+   ========================================================= */
+
+
+/* Project hero */
+
+.project-hero {
+    padding: 3rem 0;
+    background-color: var(--color-bg-surface);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin-bottom: 2rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    color: var(--color-accent);
+}
+
+.project-hero-content {
+    max-width: 800px;
+}
+
+.project-hero-content h1 {
+    margin-bottom: 1rem;
+    overflow-wrap: anywhere;
+}
+
+.project-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.project-introduction {
+    margin-bottom: 1.75rem;
+    color: var(--color-text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* Project information layout */
+
+.project-detail-section {
+    padding: var(--section-spacing) 0;
+    background-color: var(--color-bg);
+}
+
+.project-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.project-info-card,
+.project-description-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-sm);
+}
+
+.project-info-card h2,
+.project-description-card h2 {
+    margin-bottom: 1.25rem;
+    font-size: 1.3rem;
+}
+
+.project-info-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.project-info-card h2 i {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+}
+
+
+/* Technology tags */
+
+.project-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.project-skills li {
+    padding: 0.45rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background-color: var(--color-bg);
+    color: var(--color-text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+
+/* Description */
+
+.project-description-text {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+
+/* Desktop */
+
+@media (min-width: 768px) {
+
+    .project-hero {
+        padding: 4.5rem 0;
+    }
+
+    .project-detail-grid {
+        grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2fr);
+        align-items: start;
+        gap: 2rem;
+    }
+
+    .project-info-card {
+        position: sticky;
+        top: 100px;
+    }
+
+    .project-info-card,
+    .project-description-card {
+        padding: 2rem;
+    }
+
+}
+
+/* =========================================================
+   PROJECT FORM
+   ========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+}
+
+.form-group label {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.5;
+    transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-control::placeholder {
+    color: #94A3B8;
+}
+
+.form-control:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.form-help {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.form-actions .btn {
+    width: 100%;
+}
+
+@media (min-width: 576px) {
+
+    .form-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .form-actions .btn {
+        width: auto;
+        min-width: 120px;
+    }
+
+}
+
+/* BLOG FEED */
+
+.blog-hero {
+    padding: 4rem 0 3rem;
+    background-color: var(--color-bg-muted);
+}
+
+.blog-hero .container {
+    max-width: 900px;
+}
+
+.blog-hero h1 {
+    margin: 0.75rem 0 1rem;
+}
+
+.blog-hero p {
+    max-width: 650px;
+    color: var(--color-text-secondary);
+    font-size: 1.05rem;
+}
+
+.blog-feed-section {
+    padding: 3rem 0 5rem;
+}
+
+.blog-feed {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 850px;
+    margin: 2rem auto 0;
 }
 
 .article-card {
-  background-color: var(--dungeon-floor) !important;
-  border: 4px solid var(--dungeon-wall) !important;
-  padding: 20px !important;
-  position: relative !important;
-  text-align: left !important;
-  transition: border-color 0.15s ease !important;
+    padding: 1.5rem;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
 .article-card:hover {
-  border-color: var(--accent) !important;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }
 
-.article-header {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 10px !important;
-  margin-bottom: 12px !important;
-  border-bottom: 2px dashed var(--dungeon-wall) !important;
-  padding-bottom: 10px !important;
-}
-
-.article-header h2 {
-  margin: 0 !important;
-  font-size: 12px !important;
-  text-align: left !important;
-}
-
-.article-header h2 a {
-  color: var(--accent) !important;
-  text-decoration: none !important;
-}
-
-.article-header h2 a:hover {
-  text-decoration: underline !important;
-}
-
-.article-header h2 a::before {
-  content: "📜 " !important;
+.article-meta {
+    margin-bottom: 1rem;
 }
 
 .source-badge {
-  font-size: 8px !important;
-  padding: 4px 8px !important;
-  background-color: #000000 !important;
-  border: 2px solid var(--border-color) !important;
-  color: var(--primary-text) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    color: var(--color-accent);
+    background: rgba(37, 99, 235, 0.08);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
-.article-card.style-wordpress { border-left: 8px solid var(--rupee-blue) !important; }
-.article-card.style-sahvsergio { border-left: 8px solid var(--accent) !important; }
-.article-card.style-unana { border-left: 8px solid var(--heart-red) !important; }
-.article-card.style-gepido { border-left: 8px solid #00aa00 !important; }
+.article-card h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
 
-.card-body {
-  font-size: 10px !important;
-  color: var(--primary-text) !important;
-  line-height: 1.8 !important;
-  word-break: break-word !important;
+.article-card h3 a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.article-card h3 a:hover {
+    color: var(--color-accent);
+}
+
+.article-excerpt {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.article-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.article-link:hover {
+    text-decoration: underline;
 }
 
 .empty-msg {
-  text-align: center !important;
-  color: var(--accent) !important;
-  font-size: 11px !important;
-  padding: 40px !important;
-  border: 4px dashed var(--dungeon-wall) !important;
+    padding: 2rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    background: var(--color-bg-surface);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+    .blog-hero {
+        padding: 5rem 0 4rem;
+    }
+
+    .article-card {
+        padding: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .article-card {
+        transition: none;
+    }
+
+    .article-card:hover {
+        transform: none;
+    }
 }
 
 
+/* PROJECT FORM PAGE */
 
-/*****************************************************
-🔥 1986 ZELDA CAVE & PURE CSS SPRITE LOADER (404 ERROR)
-*****************************************************/
-#zelda-cave-screen {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: 1.5rem auto 4rem auto !important;
-  max-width: 750px !important;
-  padding: 10px !important;
+.form-page {
+    padding: 3rem 0 5rem;
 }
 
-.cave-frame {
-  background-color: var(--bg-main) !important;
-  border: 6px double var(--accent) !important;
-  box-shadow: inset 0 0 0 4px var(--dungeon-wall) !important;
-  padding: 30px 20px !important;
-  width: 100% !important;
-  text-align: center !important;
-  position: relative !important;
+.form-container {
+    max-width: 800px;
 }
 
-.cave-header {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 15px !important;
-  margin-bottom: 1.5rem !important;
+.form-page-heading {
+    margin-bottom: 2rem;
 }
 
-.cave-title {
-  font-size: 22px !important;
-  color: var(--heart-red) !important;
-  letter-spacing: 3px !important;
+.form-page-heading h1 {
+    margin: 0.75rem 0;
 }
 
-.cave-fire {
-  font-size: 20px !important;
-  animation: flicker 0.8s infinite alternate !important;
+.form-page-heading p {
+    max-width: 600px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
 }
 
-.old-man-container {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: 1.5rem auto 2.5rem auto !important;
-  height: 60px !important;
+.project-form-card {
+    padding: 1.5rem;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
 }
 
-.pixel-old-man {
-  width: 6px !important;
-  height: 6px !important;
-  background-color: transparent !important;
-  margin-left: -30px !important;
-  margin-top: -30px !important;
-  box-shadow: 
-    18px 0px #e43b43, 24px 0px #e43b43, 30px 0px #e43b43,
-    12px 6px #e43b43, 18px 6px #e43b43, 24px 6px #e43b43, 30px 6px #e43b43, 36px 6px #e43b43,
-    12px 12px #e43b43, 18px 12px #ffc880, 24px 12px #000000, 30px 12px #ffc880, 36px 12px #e43b43,
-    12px 18px #e43b43, 18px 18px #ffffff, 24px 18px #ffffff, 30px 18px #ffffff, 36px 18px #e43b43,
-    18px 24px #ffffff, 24px 24px #ffffff, 30px 24px #ffffff,
-    12px 30px #e43b43, 18px 30px #e43b43, 24px 30px #e69c24, 30px 30px #e43b43, 36px 30px #e43b43,
-    6px 36px #e43b43, 12px 36px #e43b43, 18px 36px #e43b43, 24px 36px #e69c24, 30px 36px #e43b43, 36px 36px #e43b43, 42px 36px #e43b43,
-    6px 42px #e43b43, 12px 42px #e43b43, 18px 42px #e43b43, 24px 42px #e43b43, 30px 42px #e43b43, 36px 42px #e43b43, 42px 42px #e43b43,
-    12px 48px #a0522d, 18px 48px #a0522d, 30px 48px #a0522d, 36px 48px #a0522d !important;
+@media (min-width: 768px) {
+    .form-page {
+        padding-top: 4rem;
+    }
 
-  animation: zelda-loader-pulse 1s infinite steps(2, start) !important;
+    .project-form-card {
+        padding: 2.5rem;
+    }
 }
 
-@keyframes zelda-loader-pulse {
-  0% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); }
+
+/* PROJECT MANAGEMENT ACTIONS */
+
+.project-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
-.zelda-cave-speech {
-  font-size: 11px !important;
-  color: var(--accent) !important;
-  line-height: 2 !important;
-  margin-bottom: 0.5rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 1px !important;
+.project-actions .btn,
+.project-actions form {
+    width: 100%;
 }
 
-.error-detail-text {
-  font-size: 8px !important;
-  color: #888888 !important;
-  margin-bottom: 2rem !important;
+.project-actions form {
+    margin: 0;
 }
 
-.cave-chest-wrapper {
-  display: flex !important;
-  justify-content: center !important;
-  margin-top: 1rem !important;
+.project-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
 }
 
-.cave-treasure-chest {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  width: 260px !important;
-  height: 100px !important;
-  background-color: var(--dungeon-floor) !important;
-  border: 4px solid var(--accent) !important;
-  position: relative !important;
-  text-decoration: none !important;
-  overflow: hidden !important;
-  cursor: pointer !important;
+.btn-danger {
+    color: #FFFFFF;
+    background-color: var(--color-danger);
+    border: 1px solid var(--color-danger);
 }
 
-.chest-lid {
-  position: absolute !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  background-color: var(--chest-wood) !important;
-  border: 4px double var(--accent) !important;
-  color: var(--accent) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  font-size: 11px !important;
-  z-index: 2 !important;
-  transition: transform 0.25s steps(3, end) !important;
+.btn-danger:hover {
+    color: #FFFFFF;
+    background-color: #B91C1C;
+    border-color: #B91C1C;
 }
 
-.chest-lid span {
-  font-size: 8px !important;
-  color: #ffffff !important;
-  margin-top: 5px !important;
+@media (min-width: 576px) {
+    .project-actions {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .project-actions .btn,
+    .project-actions form {
+        width: auto;
+    }
 }
 
-.chest-contents {
-  color: var(--accent) !important;
-  font-size: 10px !important;
-  text-align: center !important;
-  line-height: 1.6 !important;
+
+/* PROJECT MANAGEMENT ACTIONS */
+
+.project-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
 }
 
-.cave-treasure-chest:hover .chest-lid,
-.cave-treasure-chest:focus .chest-lid {
-  transform: translateY(-100%) !important;
+.project-actions .btn,
+.project-actions form {
+    width: 100%;
 }
 
-@keyframes flicker {
-  0% { opacity: 0.7; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1.05); }
+.project-actions form {
+    margin: 0;
+}
+
+.project-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+}
+
+.btn-danger {
+    color: #FFFFFF;
+    background-color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+}
+
+.btn-danger:hover {
+    color: #FFFFFF;
+    background-color: #B91C1C;
+    border-color: #B91C1C;
+}
+
+@media (min-width: 576px) {
+    .project-actions {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .project-actions .btn,
+    .project-actions form {
+        width: auto;
+    }
 }

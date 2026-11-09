@@ -1,29 +1,242 @@
-        {% extends 'layout.html' %}
-        {% block content  %}
-        <section class="header">
-            
-            <h1>Sergio Herrera </h1>
-            <p>Python Developer</p>
-          
-            <img src="/static/IMG_20231018_102335.jpg" alt="Headshot of myself">
-        </section>
-        <section id="about-page">
-            <div id="triangle7"></div>
-            <div id="triangle8"></div>
-            <h2>about me </h2>
-            <p>
-              A dedicated Python developer with a strong foundation in web development. 
-              My coding journey began three months ago, and since then,
-               I've earned a Python Development Techdegree,
-                building projects that showcase my skills and creativity. 
-                I'm passionate about developing web applications, 
-                with a particular interest in Flask, Django, and Robotic Process Automation.
 
-If you're interested in learning more about my professional background, technical skills, and the projects I've worked on, feel free to check out my CV.
-It provides a detailed overview of my journey as a developer and the experiences that have shaped my career.
+{% extends 'layout.html' %}
+
+{% block title %}
+About Sergio Herrera | Software Developer
+{% endblock %}
+
+{% block content %}
+
+<!-- ABOUT HERO -->
+<section class="hero about-hero">
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="hero-eyebrow">
+                ABOUT ME
+            </span>
+
+            <h1>
+                Sergio Herrera
+            </h1>
+
+            <p class="hero-description">
+                Software Developer focused on web applications,
+                backend development, data, and automation.
             </p>
-            
-            <a href="https://drive.google.com/file/d/193kj8cko6DBmP04HVvkRyqqUIxk31hHt/view?usp=sharing"><i class="far fa-file"></i>Resume</a>
-        </section>
-        {% endblock %}
-       
+
+            <div class="hero-actions">
+
+                <a
+                    href="https://drive.google.com/file/d/193kj8cko6DBmP04HVvkRyqqUIxk31hHt/view?usp=sharing"
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="far fa-file-pdf" aria-hidden="true"></i>
+                    View my resume
+                </a>
+
+                <a href="{{ url_for('index') }}#projects"
+                   class="btn btn-outline">
+                    Explore my projects
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="{{ url_for('static', filename='IMG_20231018_102335.jpg') }}"
+                alt="Portrait of Sergio Herrera"
+                loading="eager"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROFESSIONAL BACKGROUND -->
+<section class="about-section" id="about-page">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-eyebrow">
+                MY BACKGROUND
+            </span>
+
+            <h2>Beyond the Code</h2>
+
+        </div>
+
+        <div class="about-content">
+
+            <p>
+                I'm a software developer with a foundation in Python
+                and web development, interested in creating practical
+                applications that solve real problems.
+            </p>
+
+            <p>
+                My experience includes developing web applications
+                with Flask and Django, working with relational databases,
+                building REST APIs, and developing frontend applications
+                with JavaScript and React. I've also explored data analysis
+                with Pandas and browser automation with Selenium.
+            </p>
+
+            <p>
+                I enjoy understanding how systems work, connecting
+                different technologies, and finding ways to make
+                processes more efficient. This interest has led me
+                to explore backend architecture, database integration,
+                automation, and the practical applications of software
+                development.
+            </p>
+
+            <p>
+                I'm committed to continuous learning and improving
+                through hands-on projects. I value clean, maintainable
+                code, structured problem-solving, and solutions that
+                serve a clear purpose.
+            </p>
+
+            <p>
+                Outside programming, I enjoy independent learning,
+                reading, tutoring friends and family, and watching
+                documentaries.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROFESSIONAL INTERESTS -->
+<section class="skills-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-eyebrow">
+                AREAS OF INTEREST
+            </span>
+
+            <h2>What I'm Exploring</h2>
+
+        </div>
+
+        <div class="skills-grid">
+
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-laptop-code"
+                       aria-hidden="true"></i>
+                    <h3>Software Development</h3>
+                </div>
+
+                <p>
+                    Building web applications, backend services,
+                    and API integrations.
+                </p>
+
+            </article>
+
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-robot"
+                       aria-hidden="true"></i>
+                    <h3>Automation</h3>
+                </div>
+
+                <p>
+                    Exploring browser automation, repetitive
+                    task automation, and process improvement.
+                </p>
+
+            </article>
+
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-chart-line"
+                       aria-hidden="true"></i>
+                    <h3>Data Analysis</h3>
+                </div>
+
+                <p>
+                    Working with data cleaning, transformation,
+                    analysis, and visualization.
+                </p>
+
+            </article>
+
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-brain"
+                       aria-hidden="true"></i>
+                    <h3>Emerging Technologies</h3>
+                </div>
+
+                <p>
+                    Learning about artificial intelligence,
+                    computer vision, and their practical applications.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT CTA -->
+<section class="contact-section">
+
+    <div class="container">
+
+        <div class="contact-content">
+
+            <span class="section-eyebrow">
+                GET IN TOUCH
+            </span>
+
+            <h2>Let's build something useful.</h2>
+
+            <p>
+                I'm open to professional opportunities,
+                freelance projects, and meaningful collaborations.
+            </p>
+
+            <a
+                href="mailto:sergioherrera@alwaysdata.net"
+                class="btn btn-primary contact-button"
+            >
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Contact me
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

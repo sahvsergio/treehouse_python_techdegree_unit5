@@ -1,13 +1,21 @@
-<section id="edit-delete">
-  <a href="{{url_for('edit', id=project.id)}}" class="btn-edit">
-    <i class="fas fa-edit"></i>
-    EDIT QUEST
-  </a>
-  <a href="{{url_for('delete', id=project.id)}}" class="btn-delete">
-    <i class="far fa-trash-alt"></i>
-    ABANDON QUEST
-  </a>
+
+<section class="project-actions" aria-label="Project management actions">
+
+    <a href="{{ url_for('edit', id=project.id) }}"
+       class="btn btn-outline">
+        <i class="fas fa-edit" aria-hidden="true"></i>
+        Edit Project
+    </a>
+
+    <form method="POST"
+          action="{{ url_for('delete', id=project.id) }}"
+          onsubmit="return confirm('Are you sure you want to delete this project?');">
+
+        <button type="submit" class="btn btn-danger">
+            <i class="far fa-trash-alt" aria-hidden="true"></i>
+            Delete Project
+        </button>
+
+    </form>
+
 </section>
- <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('create')}}">Add Project</a>
-                      </li>

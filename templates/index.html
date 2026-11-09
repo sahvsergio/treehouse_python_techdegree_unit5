@@ -1,80 +1,327 @@
-{% extends 'layout.html' %} {% block content %}
-<section class="header">
-  <h1>Python Developer</h1>
-  <p>Coding is building new worlds and opportunities</p>
-  
-  <img src="static/picture.jpeg" alt="Headshot of myself" />
-</section>
-<section id="about">
-  <h2>About Me</h2>
-  <p>
-    A passionate Python developer with a focus on web development. Over the past
-    three months, I've honed my skills and recently earned my Python Development
-    Techdegree. I'm particularly interested in building web applications that
-    can make a global impact, which has driven me to learn frameworks like Flask
-    and Django. Additionally, I'm exploring the field of Robotic Process
-    Automation. During my Techdegree program, I developed five unique portfolio
-    projects, with my favorite being the creation of this very portfolio
-    website. I utilized Flask, Jinja2, and Flask-SQLAlchemy to bring my ideas to
-    life and showcase my journey as a developer. Beyond coding, I enjoy
-    independent learning, tutoring friends and family, and watching
-    documentaries. I'm committed to continuous growth and am excited about the
-    opportunities that lie ahead in the tech world.
-  </p>
-  <div id="triangle1"></div>
-  <div id="triangle2"></div>
-</section>
-<section id="skills">
-  <i class="fas fa-laptop-code"></i>
-  <h2>Skills</h2>
-  <ul>
-    <li>Python</li>
-    <li>Flask</li>
-    <li>SQLAlchemy</li>
-    <li>Selenium for web automation</li>
-    <li>Visual Studio Code</li>
-    <li>GitHub</li>
-    <li>Visual Studio Code</li>
-    <li>Data Analysis</li>
-    <li>Pandas</li>
-    <li>Data Analysis</li>
-    <li>Data Cleaning</li>
-    <li>Data Merging</li>
-  </ul>
-</section>
-<section id="projects">
-  <div id="triangle3"></div>
-  <i class="fas fa-file-code"></i>
-  <h2>Projects</h2>
-  <div id="project-list">
-    {% for project in projects %}
-   
-      <div id="project1" class="a-project">
-      <h3>{{project.title}}</h3>
-      <a href="{{project.url}}" class="github-btn">
-        <i class="fab fa-github"></i>
-        View on GitHub
-      </a>
-      <p>{{project.description}}</p>
-      <p>Skills: {{project.skills_practiced}}</p>
+
+{% extends 'layout.html' %}
+
+{% block title %}
+Sergio Herrera | Software Developer
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <span class="hero-eyebrow">
+                SOFTWARE DEVELOPER
+            </span>
+
+            <h1>
+                Building practical solutions through code.
+            </h1>
+
+            <p class="hero-description">
+                I develop web applications, backend solutions, and automation
+                tools using Python and JavaScript. I enjoy turning ideas and
+                problems into functional, maintainable software.
+            </p>
+
+            <div class="hero-actions">
+
+                <a href="#projects" class="btn btn-primary">
+                    Explore my work
+                </a>
+
+                <a href="#contact" class="btn btn-outline">
+                    Get in touch
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img
+                src="{{ url_for('static', filename='picture.jpeg') }}"
+                alt="Portrait of Sergio Herrera"
+                loading="eager"
+            >
+
+        </div>
+
     </div>
- 
-    {% endfor %}
-  </div>
-  <div id="triangle4"></div>
+
 </section>
-<section id="contact">
-  <i class="fas fa-paper-plane"></i>
-  <h2>Contact Me</h2>
-  <p>
-    I'm always open to new opportunities and collaborations. Whether you have a
-    project in mind, need some coding advice, or just want to connect, I'd love
-    to hear from you. Feel free to reach out through any of the channels below,
-    and I'll get back to you as soon as possible.
-  </p>
-  <p>Looking for a skilled Python developer? Let’s connect and bring your project to life
-    <i class="fas fa-envelope"></i>
-    <a href="mailto:sergioherrera@alwaysdata.net">Send Email </a>
-  </p>
+
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-eyebrow">
+                INTRODUCTION
+            </span>
+
+            <h2>About Me</h2>
+
+        </div>
+
+        <div class="about-content">
+
+            <p>
+                I'm a software developer focused on building web applications,
+                backend systems, and practical software solutions. My technical
+                foundation includes Python, Flask, JavaScript, React, and SQL.
+            </p>
+
+            <p>
+                My development journey has involved building applications from
+                the ground up, working with databases and APIs, exploring data
+                analysis, and experimenting with browser and process automation.
+                I value understanding how systems work, writing maintainable
+                code, and continuously improving my technical skills.
+            </p>
+
+            <p>
+                Beyond programming, I enjoy independent learning, exploring
+                technology, and understanding how things work. I'm interested
+                in opportunities where I can contribute to real projects,
+                develop practical solutions, and grow as a software developer.
+            </p>
+
+        </div>
+
+    </div>
+
 </section>
-{% endblock content %} 
+
+
+<!-- SKILLS SECTION -->
+<section class="skills-section" id="skills">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-eyebrow">
+                TECHNICAL EXPERTISE
+            </span>
+
+            <h2>Skills & Technologies</h2>
+
+            <p>
+                Technologies and tools I use to build, analyze, and automate.
+            </p>
+
+        </div>
+
+        <div class="skills-grid">
+
+            <!-- Backend -->
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-server" aria-hidden="true"></i>
+                    <h3>Backend Development</h3>
+                </div>
+
+                <ul class="skills-list">
+                    <li>Python</li>
+                    <li>Flask</li>
+                    <li>JavaScript</li>
+                    <li>Express.js</li>
+                    <li>REST APIs</li>
+                    <li>SQLAlchemy</li>
+                    <li>Sequelize</li>
+                </ul>
+
+            </article>
+
+
+            <!-- Frontend -->
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-code" aria-hidden="true"></i>
+                    <h3>Frontend Development</h3>
+                </div>
+
+                <ul class="skills-list">
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>React</li>
+                    <li>Responsive Design</li>
+                    <li>Jinja2</li>
+                </ul>
+
+            </article>
+
+
+            <!-- Data -->
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                    <h3>Data & Databases</h3>
+                </div>
+
+                <ul class="skills-list">
+                    <li>SQL</li>
+                    <li>SQLite</li>
+                    <li>MySQL</li>
+                    <li>Pandas</li>
+                    <li>Data Cleaning</li>
+                    <li>Data Analysis</li>
+                </ul>
+
+            </article>
+
+
+            <!-- Tools and Automation -->
+            <article class="skill-category">
+
+                <div class="skill-category-heading">
+                    <i class="fas fa-tools" aria-hidden="true"></i>
+                    <h3>Tools & Automation</h3>
+                </div>
+
+                <ul class="skills-list">
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Visual Studio Code</li>
+                    <li>Selenium</li>
+                    <li>Browser Automation</li>
+                    <li>Linux</li>
+                </ul>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECTS SECTION -->
+<section class="projects-section" id="projects">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span class="section-eyebrow">
+                SELECTED WORK
+            </span>
+
+            <h2>Projects</h2>
+
+            <p>
+                A selection of applications and projects demonstrating my
+                technical skills and approach to software development.
+            </p>
+
+        </div>
+
+        <div class="projects-grid" id="project-list">
+
+            {% for project in projects %}
+
+                <article class="project-card">
+
+                    <div class="project-card-content">
+
+                        <h3>
+                            {{ project.title }}
+                        </h3>
+
+                        <p class="project-description">
+                            {{ project.description }}
+                        </p>
+
+                        <div class="project-technologies">
+
+                            <span class="project-label">
+                                Technologies
+                            </span>
+
+                            <p>
+                                {{ project.skills_practiced }}
+                            </p>
+
+                        </div>
+
+                        <div class="project-actions">
+
+                            <a
+                                href="{{ project.url }}"
+                                class="project-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                View on GitHub
+                                <i class="fas fa-arrow-up-right-from-square"
+                                   aria-hidden="true"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% else %}
+
+                <p class="projects-empty">
+                    Projects will be available soon.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact">
+
+    <div class="container">
+
+        <div class="contact-content">
+
+            <span class="section-eyebrow">
+                LET'S CONNECT
+            </span>
+
+            <h2>Have a project in mind?</h2>
+
+            <p>
+                I'm open to professional opportunities, freelance projects,
+                and collaborations. If you're looking for someone interested
+                in building practical software solutions, let's talk.
+            </p>
+
+            <a
+                href="mailto:sergioherrera@alwaysdata.net"
+                class="btn btn-primary contact-button"
+            >
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Send me an email
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock content %}

@@ -1,44 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Data Streams</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/styles.css') }}">
-</head>
-<body>
 
-    <header class="header-stream-container">
-        <h1>Project Data Streams</h1>
-        <p>A systematic timeline of live portfolio updates</p>
-    </header>
+{% extends 'layout.html' %}
 
-    <main class="centered-feed-container">
-        {% for post in posts %}
-            <article class="article-card 
-                {% if post.source == 'WordPress' %}
-                    style-wordpress
-                {% elif post.source == 'Blogger - Site sahvsergio' %}
-                    style-sahvsergio
-                {% elif post.source == 'Blogger - unana' %}
-                    style-unana
-                {% elif post.source == 'Blogger - Site gepido' %}
-                    style-gepido
-                {% endif %}">
-                
-                <header class="article-header">
-                    <h2><a href="{{ post.url }}" target="_blank">{{ post.title }}</a></h2>
-                    <span class="source-badge">{{ post.source.replace('Blogger - ', '') }}</span>
-                </header>
-                
-                <div class="card-body">
-                    {{ post.description|safe }}
+{% block title %}Writing & Updates | Sergio Herrera{% endblock %}
+
+{% block content %}
+
+<section class="blog-hero">
+    <div class="container">
+        <span class="eyebrow">ARTICLES & INSIGHTS</span>
+        <h1>Writing & Updates</h1>
+        <p>
+            A collection of articles, technical notes, and updates
+            from across my writing platforms.
+        </p>
+    </div>
+</section>
+
+<section class="blog-feed-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <h2>Latest publications</h2>
+            <p>Ideas, experiences, and projects worth documenting.</p>
+        </div>
+
+        <div class="blog-feed">
+
+            {% for post in posts %}
+            <article class="article-card">
+
+                <div class="article-meta">
+                    <span class="source-badge">
+                        {{ post.source.replace('Blogger - ', '') }}
+                    </span>
                 </div>
-            </article>
-        {% else %}
-            <p class="empty-msg">No articles or updates loaded at this time.</p>
-        {% endfor %}
-    </main>
 
-</body>
-</html>
+                <h3>
+                    <a href="{{ post.url }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        {{ post.title }}
+                    </a>
+                </h3>
+
+                <div class="article-excerpt">
+                    {{ post.description }}
+                </div>
+
+                <a class="article-link"
+                   href="{{ post.url }}"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Read original article
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+
+            </article>
+
+            {% else %}
+            <p class="empty-msg">
+                No articles or updates are available at the moment.
+            </p>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

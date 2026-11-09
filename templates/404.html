@@ -1,42 +1,107 @@
+
 {% extends 'layout.html' %}
-      
-{% block content %}   
-<section id="zelda-cave-screen">
-  <div class="cave-frame">
-    
-    <!-- Cave Header & Animated Fires -->
-    <div class="cave-header">
-      <span class="cave-fire">🔥</span>
-      <h1 class="cave-title">ERROR 404</h1>
-      <span class="cave-fire">🔥</span>
+
+{% block title %}Page Not Found | Sergio Herrera{% endblock %}
+
+{% block content %}
+
+<section class="error-page">
+    <div class="container error-container">
+
+        <span class="error-code">404</span>
+
+        <h1>Page not found</h1>
+
+        <p class="error-message">
+            The page you're looking for doesn't exist, may have been moved,
+            or is temporarily unavailable.
+        </p>
+
+        {% if msg %}
+            <p class="error-detail">{{ msg }}</p>
+        {% endif %}
+
+        <div class="error-actions">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                Return to Homepage
+            </a>
+
+            <a href="{{ url_for('index') }}#projects" class="btn btn-outline">
+                Explore Projects
+            </a>
+        </div>
+
     </div>
-
-    <!-- Pure CSS 8-Bit Pixel Old Man Sprite / Loader -->
-    <div class="old-man-container">
-      <div class="pixel-old-man" role="img" aria-label="8-bit Old Man Pixel Art"></div>
-    </div>
-
-    <!-- Speech Dialogue Box -->
-    <p class="zelda-cave-speech">
-      "IT'S DANGEROUS TO GO ALONE! TAKE THIS."
-    </p>
-
-    <p class="error-detail-text">
-      {% if msg %}
-        [{{ msg }}]
-      {% else %}
-        [ THIS PAGE WAS DESTROYED BY GANON ]
-      {% endif %}
-    </p>
-
-    <!-- Interactive Treasure Chest Link -->
-    <div class="cave-chest-wrapper">
-      <a href="{{ url_for('index') }}" class="cave-treasure-chest">
-        <div class="chest-lid">🧰<br><span>[ OPEN CHEST ]</span></div>
-        <div class="chest-contents">🗡️ TAKE SWORD<br>(RETURN HOME)</div>
-      </a>
-    </div>
-
-  </div>
 </section>
+
 {% endblock content %}
+
+
+
+/* 404 ERROR PAGE */
+
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 65vh;
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.error-container {
+    max-width: 650px;
+}
+
+.error-code {
+    display: block;
+    color: var(--color-accent);
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.07em;
+}
+
+.error-container h1 {
+    margin: 1.5rem 0 1rem;
+}
+
+.error-message {
+    max-width: 520px;
+    margin: 0 auto;
+    color: var(--color-text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.error-detail {
+    margin-top: 1.25rem;
+    padding: 0.85rem 1rem;
+    color: var(--color-text-muted);
+    background: var(--color-bg-muted);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+}
+
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2rem;
+}
+
+.error-actions .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 46px;
+}
+
+@media (min-width: 576px) {
+    .error-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+}

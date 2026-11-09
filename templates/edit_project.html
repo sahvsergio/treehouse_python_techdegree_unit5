@@ -1,45 +1,105 @@
-{extends layout.html}
 
+{% extends 'layout.html' %}
 
+{% block title %}Edit Project | Sergio Herrera{% endblock %}
 
+{% block content %}
 
-        
-        
-        {% block content %}     
-          
-   
-        
-            
-      <section class="header">
-        <h1>Edit Project</h1>
-    </section>
-    <section id="form">
-        <form method="POST" action="{{ url_for('edit', id=id) }}">
-          {% block form_fields %}
+<section class="form-page">
+    <div class="container form-container">
 
-            <label for="title">Project Title</label>
-            <input type="text" id="title" name="title" value="{{ project.title }}">
+        <div class="form-page-heading">
+            <span class="eyebrow">PORTFOLIO MANAGEMENT</span>
+            <h1>Edit Project</h1>
+            <p>
+                Update the project's information, technologies,
+                description, and repository link.
+            </p>
+        </div>
 
-            <label for="date">Completion Date</label>
-            <input type="month"  name='date' value="{{ date }}">
+        <div class="project-form-card">
 
-            <label for="description">Description</label>
-            <textarea id="description" name="desc">{{ project.description }}</textarea>
+            <form method="POST" action="{{ url_for('edit', id=id) }}">
 
-            <label for="skills-list" id="skills-label">Skills</label>
-            <p>Separate each skill by a comma</p>
-            <textarea id="skills-list" name="skills">{{ project.skills_practiced }}</textarea>
+                {% block form_fields %}
 
-            <label for="github">GitHub Link</label>
-            <input type="url" id="github" name="github" value="{{ project.url }}">
-{% endblock %}
-            <div>
-                <button type="reset">Cancel</button>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </section>
-                
-         
-        {% endblock content %}
-       
+                <div class="form-group">
+                    <label for="title">Project Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        class="form-control"
+                        value="{{ project.title }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Completion Date</label>
+                    <input
+                        type="month"
+                        name="date"
+                        id="date"
+                        class="form-control"
+                        value="{{ date }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Project Description</label>
+                    <textarea
+                        name="desc"
+                        id="description"
+                        class="form-control"
+                        rows="6"
+                        required
+                    >{{ project.description }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="skills-list">Technologies & Skills</label>
+                    <p class="form-help" id="skills-help">
+                        Separate each technology or skill with a comma.
+                    </p>
+                    <textarea
+                        name="skills"
+                        id="skills-list"
+                        class="form-control"
+                        rows="4"
+                        aria-describedby="skills-help"
+                        required
+                    >{{ project.skills_practiced }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="github">GitHub Repository URL</label>
+                    <input
+                        type="url"
+                        name="github"
+                        id="github"
+                        class="form-control"
+                        value="{{ project.url }}"
+                        required
+                    >
+                </div>
+
+                {% endblock form_fields %}
+
+                <div class="form-actions">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        Save Changes
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

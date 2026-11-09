@@ -1,22 +1,29 @@
+
 {% extends 'layout.html' %}
 
+{% block title %}Add Project | Sergio Herrera{% endblock %}
 
+{% block content %}
 
-        
-        
-        {% block content %}
-            
-        
-            
-        <section class="header">
-            <h1>New Project</h1>
-        </section>
-        <section id="form">
+<section class="form-page">
+    <div class="container form-container">
+
+        <div class="form-page-heading">
+            <span class="eyebrow">PORTFOLIO MANAGEMENT</span>
+            <h1>Add a New Project</h1>
+            <p>
+                Add a project to your portfolio by providing its details,
+                technologies, and repository link.
+            </p>
+        </div>
+
+        <div class="project-form-card">
             <form method="POST" action="{{ url_for('create') }}">
                 {% include "projectform.html" %}
-                
-              
             </form>
-        </section>
-        {% endblock content %}
-       
+        </div>
+
+    </div>
+</section>
+
+{% endblock content %}

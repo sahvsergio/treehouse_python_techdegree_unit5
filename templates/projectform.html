@@ -1,47 +1,101 @@
 
-
-
- <label for="title">Project Title</label>
 {% block form_fields %}
 
-  <input
-    type="text"
-    name="title"
-    id="title"
-    placeholder="Project Name"
-    required
-  />
-<label for="date">Completion Date</label>
-<input type="month" name="date" id="date" required />
-<label for="description">Description</label>
-<textarea
-  name="desc"
-  id="description"
-  cols="30"
-  rows="20"
-  placeholder="Description"
-  required
-></textarea>
-<label for="skills-list" id="skills-label">Skills</label>
-<p>Separate each skill by a comma</p>
-<textarea
-  name="skills"
-  id="skills-list"
-  cols="30"
-  rows="10"
-  placeholder="Skill, Skill"
-  required
-></textarea>
-<label for="github">GitHub Link</label>
-<input
-  type="url"
-  name="github"
-  id="github"
-  placeholder="Link to the repo"
-  required
-/>
+<div class="form-group">
+
+    <label for="title">Project Title</label>
+
+    <input
+        type="text"
+        name="title"
+        id="title"
+        class="form-control"
+        placeholder="e.g. Personal Portfolio Website"
+        autocomplete="off"
+        required
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label for="date">Completion Date</label>
+
+    <input
+        type="month"
+        name="date"
+        id="date"
+        class="form-control"
+        required
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label for="description">Project Description</label>
+
+    <textarea
+        name="desc"
+        id="description"
+        class="form-control"
+        rows="6"
+        placeholder="Describe the project, its purpose, and the main features."
+        required
+    ></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+    <label for="skills-list">Technologies & Skills</label>
+
+    <p class="form-help" id="skills-help">
+        Separate each technology or skill with a comma.
+    </p>
+
+    <textarea
+        name="skills"
+        id="skills-list"
+        class="form-control"
+        rows="4"
+        placeholder="Python, Flask, SQLAlchemy, HTML, CSS"
+        aria-describedby="skills-help"
+        required
+    ></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+    <label for="github">GitHub Repository URL</label>
+
+    <input
+        type="url"
+        name="github"
+        id="github"
+        class="form-control"
+        placeholder="https://github.com/username/repository"
+        required
+    >
+
+</div>
+
 {% endblock form_fields %}
-<div>
-  <button type="reset">Cancel</button>
-  <button type="submit">Submit</button>
+
+
+<div class="form-actions">
+
+    <button type="reset" class="btn btn-outline">
+        Cancel
+    </button>
+
+    <button type="submit" class="btn btn-primary">
+        Save Project
+    </button>
+
 </div>
