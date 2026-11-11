@@ -143,11 +143,7 @@ def about():
     return render_template('about.html', projects=projects)
 
 
-@app.route('/init-db')
-def init_db():
-    with app.app_context():
-        db.create_all()
-    return "DB initialized"
+
 
 @app.route('/blogs')
 def show_blogs():

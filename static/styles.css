@@ -1,7 +1,7 @@
-```css
+
 /* =========================================================
-   SERGIO HERRERA — PORTFOLIO
-   Mobile-first professional design
+   SERGIO HERRERA — DEVELOPER PORTFOLIO
+   Professional, mobile-first design system
    ========================================================= */
 
 
@@ -10,7 +10,7 @@
    --------------------------------------------------------- */
 
 :root {
-    /* Brand colors */
+    /* Brand */
     --color-primary: #14243A;
     --color-secondary: #334155;
     --color-accent: #2563EB;
@@ -48,6 +48,8 @@
     /* Layout */
     --container-width: 1120px;
     --section-spacing: 4rem;
+
+    /* Borders */
     --radius-sm: 6px;
     --radius-md: 12px;
     --radius-lg: 18px;
@@ -58,7 +60,7 @@
 
 
 /* ---------------------------------------------------------
-   2. GLOBAL RESET & BASE STYLES
+   2. RESET & BASE
    --------------------------------------------------------- */
 
 *,
@@ -69,18 +71,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-main);
-    font-size: 16px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
+    scroll-padding-top: 6rem;
 }
 
 body,
@@ -89,6 +80,16 @@ input,
 textarea,
 select {
     font-family: var(--font-main);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -158,7 +159,7 @@ ul {
 }
 
 section {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 6rem;
 }
 
 
@@ -169,10 +170,14 @@ section {
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background-color: var(--color-bg-surface);
-    border-bottom: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
+    z-index: 1030;
+
+    background-color: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(20, 36, 58, 0.10);
+    box-shadow: 0 2px 8px rgba(20, 36, 58, 0.06);
 }
 
 .site-header .navbar {
@@ -191,6 +196,7 @@ section {
     color: var(--color-accent);
 }
 
+/* Mobile and tablet toggler */
 .site-header .navbar-toggler {
     display: flex;
     align-items: center;
@@ -221,7 +227,7 @@ section {
     display: flex;
     align-items: center;
     min-height: 44px;
-    padding: 0.65rem 0.85rem !important;
+    padding: 0.65rem 0.85rem;
     border-radius: var(--radius-sm);
     color: var(--color-secondary);
     font-size: 0.95rem;
@@ -229,7 +235,8 @@ section {
 }
 
 .site-header .nav-link:hover,
-.site-header .nav-link:focus {
+.site-header .nav-link:focus,
+.site-header .nav-link.active {
     background-color: var(--color-bg);
     color: var(--color-accent);
 }
@@ -238,6 +245,7 @@ section {
     padding: 0.5rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
     box-shadow: var(--shadow-md);
 }
 
@@ -271,6 +279,7 @@ section {
     font-size: 0.95rem;
     font-weight: 600;
     text-align: center;
+    text-decoration: none;
     transition:
         background-color var(--transition-fast),
         border-color var(--transition-fast),
@@ -308,9 +317,22 @@ section {
     color: var(--color-text-inverse);
 }
 
+.btn-danger {
+    border: 1px solid var(--color-danger);
+    background-color: var(--color-danger);
+    color: #FFFFFF;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    border-color: #B91C1C;
+    background-color: #B91C1C;
+    color: #FFFFFF;
+}
+
 
 /* ---------------------------------------------------------
-   6. HERO SECTION
+   6. HERO
    --------------------------------------------------------- */
 
 .hero {
@@ -397,7 +419,7 @@ section {
 
 
 /* ---------------------------------------------------------
-   8. ABOUT SECTION
+   8. ABOUT
    --------------------------------------------------------- */
 
 .about-section {
@@ -417,7 +439,7 @@ section {
 
 
 /* ---------------------------------------------------------
-   9. SKILLS SECTION
+   9. SKILLS
    --------------------------------------------------------- */
 
 .skills-section {
@@ -477,7 +499,7 @@ section {
 
 
 /* ---------------------------------------------------------
-   10. PROJECTS SECTION
+   10. PROJECTS
    --------------------------------------------------------- */
 
 .projects-section {
@@ -488,6 +510,7 @@ section {
 .projects-grid {
     display: grid;
     grid-template-columns: 1fr;
+    align-items: stretch;
     gap: 1.25rem;
 }
 
@@ -521,21 +544,25 @@ section {
 .project-card h3 {
     margin-bottom: 0.9rem;
     font-size: 1.2rem;
+    overflow-wrap: anywhere;
 }
 
 .project-description {
+    margin-bottom: 0;
     color: var(--color-text-muted);
     font-size: 0.95rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
 }
 
 .project-technologies {
-    margin-top: auto;
-    padding-top: 1rem;
+    margin-top: 1.25rem;
+    padding-top: 0;
 }
 
 .project-label {
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
     color: var(--color-primary);
     font-size: 0.78rem;
     font-weight: 700;
@@ -547,12 +574,26 @@ section {
     margin-bottom: 0;
     color: var(--color-text-muted);
     font-size: 0.85rem;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
 }
 
 .project-actions {
-    margin-top: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
     padding-top: 1rem;
     border-top: 1px solid var(--color-border);
+}
+
+.project-actions form {
+    margin: 0;
+}
+
+.project-actions .btn {
+    width: 100%;
+    min-height: 44px;
 }
 
 .project-link {
@@ -575,7 +616,7 @@ section {
 
 
 /* ---------------------------------------------------------
-   11. CONTACT SECTION
+   11. CONTACT
    --------------------------------------------------------- */
 
 .contact-section {
@@ -586,8 +627,8 @@ section {
 
 .contact-content {
     max-width: 700px;
-    text-align: center;
     margin-inline: auto;
+    text-align: center;
 }
 
 .contact-content .section-eyebrow {
@@ -659,159 +700,8 @@ section {
 
 
 /* ---------------------------------------------------------
-   13. TABLET — 576px AND ABOVE
+   13. PROJECT DETAIL PAGE
    --------------------------------------------------------- */
-
-@media (min-width: 576px) {
-
-    :root {
-        --section-spacing: 4.5rem;
-    }
-
-    .container {
-        width: min(100% - 3rem, var(--container-width));
-    }
-
-    .hero {
-        padding: 4.5rem 0;
-    }
-
-    .hero-actions {
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .hero-image {
-        width: 220px;
-        height: 220px;
-    }
-
-    .skills-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .projects-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-/* ---------------------------------------------------------
-   14. TABLET / SMALL DESKTOP — 768px AND ABOVE
-   --------------------------------------------------------- */
-
-@media (min-width: 768px) {
-
-    .hero-container {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 3rem;
-    }
-
-    .hero-content {
-        flex: 1;
-        text-align: left;
-    }
-
-    .hero-content h1,
-    .hero-description {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .hero-actions {
-        justify-content: flex-start;
-    }
-
-    .hero-image {
-        width: 250px;
-        height: 250px;
-    }
-
-    .section-heading {
-        margin-bottom: 2.5rem;
-    }
-
-}
-
-
-/* ---------------------------------------------------------
-   15. DESKTOP — 992px AND ABOVE
-   --------------------------------------------------------- */
-
-@media (min-width: 992px) {
-
-    :root {
-        --section-spacing: 5rem;
-    }
-
-    .site-header .navbar-collapse {
-        padding-top: 0;
-    }
-
-    .site-header .navbar-nav {
-        align-items: center;
-        gap: 0.4rem;
-    }
-
-    .hero {
-        padding: 6rem 0;
-    }
-
-    .hero-image {
-        width: 290px;
-        height: 290px;
-    }
-
-    .projects-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-}
-
-
-/* ---------------------------------------------------------
-   16. LARGE DESKTOP — 1200px AND ABOVE
-   --------------------------------------------------------- */
-
-@media (min-width: 1200px) {
-
-    .hero-container {
-        gap: 5rem;
-    }
-
-    .hero-image {
-        width: 320px;
-        height: 320px;
-    }
-
-}
-
-
-/* ---------------------------------------------------------
-   17. ACCESSIBILITY — REDUCED MOTION
-   --------------------------------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-
-}
-
-/* =========================================================
-   PROJECT DETAIL PAGE
-   ========================================================= */
-
-
-/* Project hero */
 
 .project-hero {
     padding: 3rem 0;
@@ -859,9 +749,6 @@ section {
     line-height: 1.8;
 }
 
-
-/* Project information layout */
-
 .project-detail-section {
     padding: var(--section-spacing) 0;
     background-color: var(--color-bg);
@@ -875,6 +762,7 @@ section {
 
 .project-info-card,
 .project-description-card {
+    min-width: 0;
     padding: 1.5rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -899,9 +787,6 @@ section {
     font-size: 1.1rem;
 }
 
-
-/* Technology tags */
-
 .project-skills {
     display: flex;
     flex-wrap: wrap;
@@ -921,9 +806,6 @@ section {
     font-weight: 500;
 }
 
-
-/* Description */
-
 .project-description-text {
     color: var(--color-text-secondary);
     font-size: 1rem;
@@ -932,35 +814,9 @@ section {
 }
 
 
-/* Desktop */
-
-@media (min-width: 768px) {
-
-    .project-hero {
-        padding: 4.5rem 0;
-    }
-
-    .project-detail-grid {
-        grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2fr);
-        align-items: start;
-        gap: 2rem;
-    }
-
-    .project-info-card {
-        position: sticky;
-        top: 100px;
-    }
-
-    .project-info-card,
-    .project-description-card {
-        padding: 2rem;
-    }
-
-}
-
-/* =========================================================
-   PROJECT FORM
-   ========================================================= */
+/* ---------------------------------------------------------
+   14. FORMS
+   --------------------------------------------------------- */
 
 .form-group {
     display: flex;
@@ -1023,21 +879,45 @@ textarea.form-control {
     width: 100%;
 }
 
-@media (min-width: 576px) {
 
-    .form-actions {
-        flex-direction: row;
-        justify-content: flex-end;
-    }
+/* ---------------------------------------------------------
+   15. PROJECT FORM PAGE
+   --------------------------------------------------------- */
 
-    .form-actions .btn {
-        width: auto;
-        min-width: 120px;
-    }
-
+.form-page {
+    padding: 3rem 0 5rem;
 }
 
-/* BLOG FEED */
+.form-container {
+    max-width: 800px;
+}
+
+.form-page-heading {
+    margin-bottom: 2rem;
+}
+
+.form-page-heading h1 {
+    margin: 0.75rem 0;
+}
+
+.form-page-heading p {
+    max-width: 600px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.project-form-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--shadow-md);
+}
+
+
+/* ---------------------------------------------------------
+   16. BLOG FEED
+   --------------------------------------------------------- */
 
 .blog-hero {
     padding: 4rem 0 3rem;
@@ -1071,10 +951,11 @@ textarea.form-control {
 }
 
 .article-card {
+    min-width: 0;
     padding: 1.5rem;
-    background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
     box-shadow: var(--shadow-sm);
     transition:
         transform var(--transition-fast),
@@ -1093,9 +974,9 @@ textarea.form-control {
 .source-badge {
     display: inline-block;
     padding: 0.35rem 0.7rem;
-    color: var(--color-accent);
-    background: rgba(37, 99, 235, 0.08);
     border-radius: 999px;
+    background-color: rgba(37, 99, 235, 0.08);
+    color: var(--color-accent);
     font-size: 0.75rem;
     font-weight: 600;
 }
@@ -1107,7 +988,6 @@ textarea.form-control {
 
 .article-card h3 a {
     color: var(--color-primary);
-    text-decoration: none;
 }
 
 .article-card h3 a:hover {
@@ -1117,16 +997,17 @@ textarea.form-control {
 .article-excerpt {
     color: var(--color-text-secondary);
     line-height: 1.7;
+    overflow-wrap: anywhere;
 }
 
 .article-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.25rem;
+    min-height: 44px;
+    margin-top: 1rem;
     color: var(--color-accent);
     font-weight: 600;
-    text-decoration: none;
 }
 
 .article-link:hover {
@@ -1135,14 +1016,136 @@ textarea.form-control {
 
 .empty-msg {
     padding: 2rem;
-    color: var(--color-text-muted);
-    text-align: center;
-    background: var(--color-bg-surface);
     border: 1px dashed var(--color-border-strong);
     border-radius: var(--radius-md);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-muted);
+    text-align: center;
 }
 
+
+/* ---------------------------------------------------------
+   17. TABLET — 576px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 576px) {
+
+    :root {
+        --section-spacing: 4.5rem;
+    }
+
+    .container {
+        width: min(100% - 3rem, var(--container-width));
+    }
+
+    .hero {
+        padding: 4.5rem 0;
+    }
+
+    .hero-actions {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .hero-image {
+        width: 220px;
+        height: 220px;
+    }
+
+    .skills-grid,
+    .projects-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .form-actions {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .form-actions .btn {
+        width: auto;
+        min-width: 120px;
+    }
+
+    .project-actions {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .project-actions form {
+        width: auto;
+    }
+
+    .project-actions .btn {
+        width: auto;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   18. TABLET / SMALL DESKTOP — 768px AND ABOVE
+   --------------------------------------------------------- */
+
 @media (min-width: 768px) {
+
+    .hero-container {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 3rem;
+    }
+
+    .hero-content {
+        flex: 1;
+        text-align: left;
+    }
+
+    .hero-content h1,
+    .hero-description {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-actions {
+        justify-content: flex-start;
+    }
+
+    .hero-image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .section-heading {
+        margin-bottom: 2.5rem;
+    }
+
+    .project-hero {
+        padding: 4.5rem 0;
+    }
+
+    .project-detail-grid {
+        grid-template-columns: minmax(220px, 0.75fr) minmax(0, 2fr);
+        align-items: start;
+        gap: 2rem;
+    }
+
+    .project-info-card {
+        position: sticky;
+        top: 100px;
+    }
+
+    .project-info-card,
+    .project-description-card {
+        padding: 2rem;
+    }
+
+    .project-form-card {
+        padding: 2.5rem;
+    }
+
+    .form-page {
+        padding-top: 4rem;
+    }
+
     .blog-hero {
         padding: 5rem 0 4rem;
     }
@@ -1152,157 +1155,92 @@ textarea.form-control {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .article-card {
-        transition: none;
+
+/* ---------------------------------------------------------
+   19. DESKTOP — 992px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 992px) {
+
+    :root {
+        --section-spacing: 5rem;
     }
 
-    .article-card:hover {
+    /* Hide the mobile hamburger on desktop */
+    .site-header .navbar-toggler {
+        display: none;
+    }
+
+    .site-header .navbar-collapse {
+        display: flex !important;
+        padding-top: 0;
+    }
+
+    .site-header .navbar-nav {
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .hero {
+        padding: 6rem 0;
+    }
+
+    .hero-image {
+        width: 290px;
+        height: 290px;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   20. LARGE DESKTOP — 1200px AND ABOVE
+   --------------------------------------------------------- */
+
+@media (min-width: 1200px) {
+
+    .hero-container {
+        gap: 5rem;
+    }
+
+    .hero-image {
+        width: 320px;
+        height: 320px;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   21. ACCESSIBILITY & INTERACTION
+   --------------------------------------------------------- */
+
+@media (hover: none) {
+
+    .project-card:hover,
+    .article-card:hover,
+    .btn:hover {
         transform: none;
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
 
-/* PROJECT FORM PAGE */
-
-.form-page {
-    padding: 3rem 0 5rem;
-}
-
-.form-container {
-    max-width: 800px;
-}
-
-.form-page-heading {
-    margin-bottom: 2rem;
-}
-
-.form-page-heading h1 {
-    margin: 0.75rem 0;
-}
-
-.form-page-heading p {
-    max-width: 600px;
-    color: var(--color-text-secondary);
-    line-height: 1.7;
-}
-
-.project-form-card {
-    padding: 1.5rem;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-md);
-}
-
-@media (min-width: 768px) {
-    .form-page {
-        padding-top: 4rem;
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 
-    .project-form-card {
-        padding: 2.5rem;
-    }
-}
-
-
-/* PROJECT MANAGEMENT ACTIONS */
-
-.project-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
-.project-actions .btn,
-.project-actions form {
-    width: 100%;
-}
-
-.project-actions form {
-    margin: 0;
-}
-
-.project-actions .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    min-height: 44px;
-}
-
-.btn-danger {
-    color: #FFFFFF;
-    background-color: var(--color-danger);
-    border: 1px solid var(--color-danger);
-}
-
-.btn-danger:hover {
-    color: #FFFFFF;
-    background-color: #B91C1C;
-    border-color: #B91C1C;
-}
-
-@media (min-width: 576px) {
-    .project-actions {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .project-actions .btn,
-    .project-actions form {
-        width: auto;
-    }
-}
-
-
-/* PROJECT MANAGEMENT ACTIONS */
-
-.project-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
-.project-actions .btn,
-.project-actions form {
-    width: 100%;
-}
-
-.project-actions form {
-    margin: 0;
-}
-
-.project-actions .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    min-height: 44px;
-}
-
-.btn-danger {
-    color: #FFFFFF;
-    background-color: var(--color-danger);
-    border: 1px solid var(--color-danger);
-}
-
-.btn-danger:hover {
-    color: #FFFFFF;
-    background-color: #B91C1C;
-    border-color: #B91C1C;
-}
-
-@media (min-width: 576px) {
-    .project-actions {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .project-actions .btn,
-    .project-actions form {
-        width: auto;
+    .project-card:hover,
+    .article-card:hover,
+    .btn:hover {
+        transform: none;
     }
 }
